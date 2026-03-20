@@ -1,0 +1,43 @@
+keybinds {
+normal {
+    // Enter pane mode
+    bind "Ctrl g" { SwitchToMode "pane"; }
+    // Enter tab mode  
+    bind "Ctrl g" { SwitchToMode "tab"; }
+}
+
+pane {
+    // Switch panes vim-style
+    bind "h" { MoveFocus "Left"; SwitchToMode "normal"; }
+    bind "j" { MoveFocus "Down"; SwitchToMode "normal"; }
+    bind "k" { MoveFocus "Up"; SwitchToMode "normal"; }
+    bind "l" { MoveFocus "Right"; SwitchToMode "normal"; }
+
+    // Splits
+    bind "v" { NewPane "Right"; SwitchToMode "normal"; }
+    bind "s" { NewPane "Down"; SwitchToMode "normal"; }
+
+    bind "Esc" { SwitchToMode "normal"; }
+}
+
+tab {
+    // Switch tabs vim-style
+    bind "h" { GoToPreviousTab; SwitchToMode "normal"; }
+    bind "l" { GoToNextTab; SwitchToMode "normal"; }
+
+    // Jump directly to tab
+    bind "1" { GoToTab 1; SwitchToMode "normal"; }
+    bind "2" { GoToTab 2; SwitchToMode "normal"; }
+    bind "3" { GoToTab 3; SwitchToMode "normal"; }
+
+    // New tab
+    bind "t" { NewTab; SwitchToMode "normal"; }
+
+    bind "Esc" { SwitchToMode "normal"; }
+}
+}
+
+// Quality of life
+simplified_ui false
+pane_frames true
+default_shell "zsh"       // or bash if you prefer
