@@ -1,0 +1,10 @@
+[username]
+show_always = false
+
+[directory]
+style = "bold blue"
+truncate_to_repo = true
+
+[git_branch]
+symbol = " "
+style = "bold green"
