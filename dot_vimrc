@@ -1,0 +1,32 @@
+" General Vim settings — IDE-agnostic, sourced by .ideavimrc
+
+let mapleader = " "
+
+" --- display ---
+set number
+set relativenumber
+set scrolloff=8
+set sidescrolloff=8
+set showmode
+set showcmd
+
+" --- search ---
+set ignorecase        " case-insensitive by default
+set smartcase         " case-sensitive if query contains uppercase
+set incsearch
+set hlsearch
+nnoremap <leader>/ :nohlsearch<CR>
+
+" --- clipboard ---
+set clipboard=unnamedplus  " yank/delete/paste go to system clipboard
+                            " swap to `unnamed` on macOS if this breaks
+
+" --- quality of life ---
+nnoremap <C-d> <C-d>zz     " keep cursor centred when scrolling
+nnoremap <C-u> <C-u>zz
+nnoremap n nzzzv            " keep cursor centred when cycling search hits
+nnoremap N Nzzzv
+nnoremap Y y$               " Y yanks to end of line (mirrors D and C)
+vnoremap <leader>p "_dP     " paste over selection without clobbering register
+vnoremap J :m '>+1<CR>gv=gv " move selected lines down
+vnoremap K :m '<-2<CR>gv=gv " move selected lines up
