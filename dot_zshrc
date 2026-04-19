@@ -1,0 +1,30 @@
+# SSH Agent
+if [ -z "$SSH_AUTH_SOCK" ] && [ -x "$(command -v ssh-agent)" ]; then
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_rsa
+fi
+
+# SDKMAN
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Claude 
+export PATH="$HOME/.claude/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/home/dschimtzek/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# Starship
+eval "$(starship init zsh)"
+
+# nvm 
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
