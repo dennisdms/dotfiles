@@ -29,4 +29,11 @@ export NVM_DIR="$HOME/.config/nvm"
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-[ -f ~/.zshrc.local ] && source ~/.zshrc
+# source local .zshrc
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# cargo
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# aliases
+alias bat='batcat'
