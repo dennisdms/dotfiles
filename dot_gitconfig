@@ -12,7 +12,8 @@
 	dark = true
 	side-by-side = true
 
-[merge]
-	conflictStyle = zdiff3
 [pager]
 	diff = delta
+
+[help]
+	autocorrect = immediate
