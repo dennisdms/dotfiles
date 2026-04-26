@@ -36,7 +36,7 @@ export NVM_DIR="$HOME/.config/nvm"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # aliases
-alias bat='batcat'
+alias cat='batcat'
 alias ls='eza -la --git'
 alias lt='eza --tree --level=3'
 
