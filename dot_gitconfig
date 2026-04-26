@@ -17,3 +17,6 @@
 
 [help]
 	autocorrect = immediate
+
+[push]
+	autoSetupRemote = true
