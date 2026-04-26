@@ -18,9 +18,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# Starship
-eval "$(starship init zsh)"
-
 # nvm 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -35,10 +32,15 @@ export NVM_DIR="$HOME/.config/nvm"
 # cargo
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# zoxide
+eval "$(zoxide init zsh)"
+
 # aliases
 alias cat='batcat'
 alias ls='eza -la --git'
 alias lt='eza --tree --level=3'
+alias j='z'
+alias jj='zi'
 
-# zoxide
-eval "$(zoxide init zsh)"
+# Starship
+eval "$(starship init zsh)"
