@@ -36,7 +36,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 eval "$(zoxide init zsh)"
 
 # aliases
-alias cat='batcat'
 alias ls='eza -la --git'
 alias lt='eza --tree --level=3'
 alias j='z'
