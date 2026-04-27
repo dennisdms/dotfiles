@@ -3,6 +3,7 @@
 
 [core]
 	pager = delta
+	editor = vim
 
 [interactive]
 	diffFilter = delta --color-only
@@ -20,3 +21,7 @@
 
 [push]
 	autoSetupRemote = true
+
+[alias]
+	s = status -s
+	cam = commit -am
