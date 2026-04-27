@@ -47,3 +47,23 @@ if [ ! -d "$HOME/.fzf" ]; then
   git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
   "$HOME/.fzf/install" --all --no-update-rc
 fi
+
+# copyq
+if ! command -v copyq >/dev/null 2>&1; then
+  sudo apt update
+
+  sudo apt install -y software-properties-common
+
+  if ! grep -Rq "hluk/copyq" /etc/apt/sources.list /etc/apt/sources.list.d/ 2>/dev/null; then
+    sudo add-apt-repository -y ppa:hluk/copyq
+    sudo apt update
+  fi
+
+  sudo apt install -y copyq
+fi
+
+# flameshot
+if ! command -v flameshot >/dev/null 2>&1; then
+  sudo apt update
+  sudo apt install -y flameshot
+fi
