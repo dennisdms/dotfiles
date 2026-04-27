@@ -26,3 +26,4 @@
 	s = status -s
 	cam = commit -am
 	camp = "!f() { git commit -am \"$1\" && git push; }; f"
+	l = log --graph --pretty=format:'%C(auto)%h %C(blue)%an %C(yellow)%d %s %C(green)(%cr)' --all
