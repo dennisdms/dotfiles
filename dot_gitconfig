@@ -25,3 +25,4 @@
 [alias]
 	s = status -s
 	cam = commit -am
+	camp = '!git commit -am "$1" && git push'
