@@ -23,3 +23,5 @@ set laststatus=2
 set ruler
 set showcmd
 set scrolloff=8
+
+nnoremap <leader>h :nohlsearch<CR>

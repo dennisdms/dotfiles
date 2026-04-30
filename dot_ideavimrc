@@ -2,10 +2,21 @@ source ~/.vimrc
 
 set clipboard=unnamedplus
 
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-commentary'
+
 nnoremap gd :action GotoDeclaration<CR>
 nnoremap gr :action FindUsages<CR>
 nnoremap gi :action GotoImplementation<CR>
 nnoremap gt :action GotoTypeDeclaration<CR>
+
+nnoremap <leader>db :action ToggleLineBreakpoint<CR>
+nnoremap <leader>dc :action Resume<CR>
+nnoremap <leader>ds :action Stop<CR>
+nnoremap <leader>do :action StepOver<CR>
+nnoremap <leader>di :action StepInto<CR>
+nnoremap <leader>du :action StepOut<CR>
+
 nnoremap [e :action GotoPreviousError<CR>
 nnoremap ]e :action GotoNextError<CR>
 
