@@ -22,6 +22,27 @@
 [push]
 	autoSetupRemote = true
 
+[pull]
+	rebase = true
+
+[fetch]
+	prune = true
+
+[merge]
+	ff = only
+
+[rebase]
+	autoStash = true
+
+[rerere]
+	enabled = true
+
+[branch]
+	sort = -committerdate
+
+[log]
+	date = iso
+
 [alias]
 	s = status -s
 	cam = commit -am
