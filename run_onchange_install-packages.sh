@@ -1,49 +1,34 @@
-#!/bin/sh
+#!/bin/bash
+set -e
 
-sudo apt update
+# Source brew into PATH — scripts don't inherit shell environment
+if [ -f /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
-# update git
-sudo apt install -y git
+# CLI tools
+brew install \
+  git \
+  fzf \
+  starship \
+  bat \
+  eza \
+  git-delta \
+  chezmoi \
+  atuin \
+  uv \
+  pnpm \
+  node \
+  zoxide
 
-# install rustup
-if ! command -v rustup >/dev/null 2>&1; then
+# Rust — official installer
+if ! command -v rustup &>/dev/null; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 fi
 
-source "$HOME/.cargo/env"
-
-# cargo packages
-for crate in eza bat zoxide starship uv git-delta; do
-  command -v "$crate" >/dev/null 2>&1 || cargo install "$crate" --locked
-done
-
-# SDKMAN!
-if ! command -v sdk >/dev/null 2>&1; then
+# SDKMAN — official installer
+if [ ! -d "$HOME/.sdkman" ]; then
   curl -s "https://get.sdkman.io" | bash
-fi
-
-if [ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]; then
-  source "$HOME/.sdkman/bin/sdkman-init.sh"
-fi
-
-# maven
-if ! sdk list maven | grep -q "installed"; then
-  sdk install maven
-fi
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-
-if [ ! -d "$NVM_DIR" ]; then
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-fi
-
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-nvm install --lts
-
-# fzf
-if [ ! -d "$HOME/.fzf" ]; then
-  git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
-  "$HOME/.fzf/install" --all --no-update-rc
 fi
