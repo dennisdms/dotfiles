@@ -1,75 +1,26 @@
-" IdeaVim config — IntelliJ-specific. General settings live in ~/.vimrc
 source ~/.vimrc
 
-" --- plugins ---
-" surround:            cs"' → change surrounding, ds" → delete, ysiw] → wrap
-" commentary:          gcc → comment line, gc{motion} → comment range
-" highlightedyank:     briefly flash the yanked region
-" sneak:               s{aa} → jump to next 2-char match (beats f/t for distance)
-" easymotion:          <leader><leader>w → visual jump targets across screen
-" argtextobj:          via / daa → select or delete a function argument
-" textobj-entire:      yae / dae → yank or delete entire file
-" exchange:            cx{motion} twice → swap two regions
-" ReplaceWithRegister: gr{motion} → replace without overwriting the register
-" NERDTree:            file tree sidebar
-set surround
-set commentary
-set highlightedyank
-set sneak
-set easymotion
-set argtextobj
-set textobj-entire
-set exchange
-set ReplaceWithRegister
-set NERDTree
+set clipboard=unnamedplus
 
-" --- intellij behaviour ---
-set ideajoin          " J uses IntelliJ's smart join (handles commas, chained calls)
-set idearefactormode=normal
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-commentary'
 
-" --- nerdtree ---
-" Built-in keys inside the tree: o/enter open, s vertical split, i horizontal
-" split, I toggle hidden, m menu (add/rename/delete), R refresh, q close
-nnoremap <leader>e  :NERDTreeToggle<CR>
-nnoremap <leader>ef :NERDTreeFind<CR>   " reveal current file in tree
-nnoremap <leader>ec :NERDTreeClose<CR>
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gr :action FindUsages<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gt :action GotoTypeDeclaration<CR>
 
-" --- splits ---
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-nnoremap <C-k> <C-w>k
-nnoremap <C-j> <C-w>j
-nnoremap <leader>sv :action SplitVertically<CR>
-nnoremap <leader>sh :action SplitHorizontally<CR>
-nnoremap <leader>sc :action Unsplit<CR>
-nnoremap <leader>sm :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <leader>db :action ToggleLineBreakpoint<CR>
+nnoremap <leader>dc :action Resume<CR>
+nnoremap <leader>ds :action Stop<CR>
+nnoremap <leader>do :action StepOver<CR>
+nnoremap <leader>di :action StepInto<CR>
+nnoremap <leader>du :action StepOut<CR>
 
-" --- tabs ---
-nnoremap <S-l> :action NextTab<CR>
-nnoremap <S-h> :action PreviousTab<CR>
-nnoremap <leader>bd :action CloseContent<CR>
+nnoremap [e :action GotoPreviousError<CR>
+nnoremap ]e :action GotoNextError<CR>
 
-" --- navigation ---
-nnoremap <leader>gd :action GotoDeclaration<CR>
-nnoremap <leader>gi :action GotoImplementation<CR>
-nnoremap <leader>gr :action FindUsages<CR>
-nnoremap <leader>gt :action GotoTest<CR>
-nnoremap <leader>gb :action Back<CR>
-nnoremap <leader>gf :action Forward<CR>
-
-" --- refactoring ---
-nnoremap <leader>rn :action RenameElement<CR>
-nnoremap <leader>rf :action ReformatCode<CR>
-nnoremap <leader>ro :action OptimizeImports<CR>
-nnoremap <leader>re :action ExtractMethod<CR>
-
-" --- search ---
-nnoremap <leader>ff :action GotoFile<CR>
-nnoremap <leader>fa :action GotoAction<CR>
-nnoremap <leader>fs :action GotoSymbol<CR>
-nnoremap <leader>fg :action FindInPath<CR>
-
-" --- diagnostics ---
-nnoremap <leader>ee :action ShowErrorDescription<CR>
-nnoremap ]e         :action GotoNextError<CR>
-nnoremap [e         :action GotoPreviousError<CR>
+nnoremap <leader>f :action Find<CR>
+nnoremap <leader>x :action ChooseRunConfiguration<CR>
+nnoremap <leader>r :action RenameElement<CR>
+nnoremap <leader>a :action ShowIntentionActions<CR>
