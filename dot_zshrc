@@ -22,8 +22,11 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# fzf
+# fzf (file and directory search: ctrl+t, alt+c)
 eval "$(fzf --zsh)"
+
+# atuin (history search: ctrl+r, up arrow)
+eval "$(atuin init zsh)"
 
 # source local .zshrc
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
