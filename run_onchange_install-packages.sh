@@ -11,6 +11,8 @@ fi
 # CLI tools
 brew install \
   git \
+  gh \
+  ghq \
   fzf \
   starship \
   bat \
