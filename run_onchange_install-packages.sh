@@ -23,8 +23,7 @@ brew install \
   uv \
   pnpm \
   node \
-  zoxide \
-  gh
+  zoxide
 
 # Rust — official installer
 if ! command -v rustup &>/dev/null; then
