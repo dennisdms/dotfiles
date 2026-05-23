@@ -15,10 +15,13 @@ total_tokens=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
 ctx_size=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
 ctx_used_k=$(echo "$total_tokens $ctx_size" | awk '{printf "%.0fk/%.0fk", $1/1000, $2/1000}')
 
-five_pct=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+five_pct_raw=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
 five_reset=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
-seven_pct=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
+seven_pct_raw=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
 seven_reset=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
+
+[ -n "$five_pct_raw" ] && five_pct=$(printf '%.0f' "$five_pct_raw")
+[ -n "$seven_pct_raw" ] && seven_pct=$(printf '%.0f' "$seven_pct_raw")
 
 time_remaining() {
   local ts=$1
@@ -46,6 +49,7 @@ GREEN=$'\033[38;5;82m'
 RED=$'\033[38;5;203m'
 WHITE=$'\033[97m'
 GRAY=$'\033[38;5;245m'
+FAINT=$'\033[2m'
 RESET=$'\033[0m'
 
 SEP="${GRAY} | ${RESET}"
@@ -56,10 +60,15 @@ model_part="${ORANGE}${model}${RESET}"
 [ -n "$effort" ] && model_part="$model_part${GRAY} (${effort})${RESET}"
 line1="${model_part}${SEP}${WHITE}Thinking:${RESET} ${GRAY}${thinking_val}${RESET}"
 
-# Line 2: Project | Session | +added/-removed
-line2="${CYAN}${project}${RESET}${SEP}${WHITE}${session}${RESET}"
+# Line 2: Project | +added/-removed | Session title
+line2="${CYAN}${project}${RESET}"
 if [ "$lines_added" -gt 0 ] || [ "$lines_removed" -gt 0 ]; then
   line2="$line2${SEP}${GREEN}+${lines_added}${RESET}${GRAY}/${RESET}${RED}-${lines_removed}${RESET}"
+fi
+if [ -n "$session" ]; then
+  line2="$line2${SEP}${WHITE}${session}${RESET}"
+else
+  line2="$line2${SEP}${FAINT}no title${RESET}"
 fi
 
 # Line 3: Ctx used/total | 5H % reset | 7D % reset
