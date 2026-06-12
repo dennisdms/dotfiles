@@ -1,6 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = """$username$hostname$directory$git_branch$git_state$git_status$character"""
+format = """$username$hostname$directory$python$git_branch$git_state$git_status$character"""
 
 [directory]
 style = "blue"
@@ -16,6 +16,13 @@ disabled = true
 success_symbol = "[>](purple)"
 error_symbol = "[>](red)"
 vimcmd_symbol = "[<](green)"
+
+[python]
+format = '[(${version} )(\($virtualenv\) )]($style)'
+style = "yellow"
+detect_files = []
+detect_extensions = []
+detect_folders = []
 
 [git_branch]
 format = "[$branch]($style) "
