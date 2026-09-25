@@ -17,9 +17,15 @@ Chezmoi directory
 
 Bootstrap
 
-Linux:
+macOS:
 ```bash
 command -v chezmoi >/dev/null \
   && chezmoi update \
   || sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:dennisdms/dotfiles.git
+```
+
+CachyOS / Arch:
+```bash
+sudo pacman -S --needed chezmoi git \
+  && chezmoi init --apply git@github.com:dennisdms/dotfiles.git
 ```

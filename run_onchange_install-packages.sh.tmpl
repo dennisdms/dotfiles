@@ -1,0 +1,47 @@
+#!/bin/bash
+set -e
+
+{{ if eq .chezmoi.os "darwin" -}}
+# Source brew into PATH — scripts don't inherit shell environment
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# CLI tools
+brew install \
+  git \
+  gh \
+  ghq \
+  fzf \
+  starship \
+  bat \
+  eza \
+  git-delta \
+  chezmoi \
+  atuin \
+  uv \
+  pnpm \
+  node \
+  zoxide
+{{ else if and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "cachyos") (contains "arch" (.chezmoi.osRelease.idLike | default ""))) -}}
+# CLI tools
+sudo pacman -S --needed --noconfirm \
+  git \
+  github-cli \
+  ghq \
+  fzf \
+  starship \
+  bat \
+  eza \
+  git-delta \
+  chezmoi \
+  atuin \
+  uv \
+  pnpm \
+  nodejs \
+  npm \
+  zoxide \
+  zsh \
+  base-devel
+{{ else -}}
+echo "unsupported OS: {{ .chezmoi.os }}" >&2
+exit 1
+{{ end -}}

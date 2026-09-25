@@ -9,11 +9,10 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # Claude 
-export PATH="$HOME/.claude/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Homebrew
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
-[ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
