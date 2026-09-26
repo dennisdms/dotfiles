@@ -10,6 +10,8 @@ chezmoi/
 │   ├── executable_statusline-command.sh
 │   └── settings.json
 ├── dot_config/
+│   ├── ghostty/
+│   │   └── config.ghostty
 │   └── starship.toml
 ├── README.md
 ├── dot_gitconfig
@@ -21,6 +23,7 @@ chezmoi/
 ├── run_onchange_install-toolchains.sh
 ├── AGENTS.md
 ├── CLAUDE.md
+├── .chezmoiignore
 └── .gitignore
 ```
 
@@ -35,9 +38,11 @@ chezmoi/
 - `README.md` — quick notes for adding, editing, applying, and bootstrapping the chezmoi repo.
 - `AGENTS.md` — repository guidance for coding agents, including structure, chezmoi naming, and file inventory.
 - `CLAUDE.md` — Claude entrypoint that imports shared repository context from `@AGENTS.md`.
+- `.chezmoiignore` — keeps repo-only docs (`AGENTS.md`, `CLAUDE.md`, `README.md`) from being applied into `$HOME`.
 - `.gitignore` — local ignore rules for repo-specific, non-versioned files.
 - `dot_claude/settings.json` — user Claude settings synced by chezmoi, including plugin enablement, fullscreen TUI, and a custom status line command.
 - `dot_claude/executable_statusline-command.sh` — shell script that renders Claude status line details such as model, effort, thinking mode, session name, context usage, and rate-limit windows.
+- `dot_config/ghostty/config.ghostty` — Ghostty terminal config: Catppuccin Macchiato theme, a 200x50 default window size, and ctrl+backspace mapped to delete the previous word.
 - `dot_config/starship.toml` — Starship prompt config with a compact single-line prompt and Git status modules.
 - `dot_gitconfig` — Git defaults and aliases, including `delta` integration, rebase-oriented pull behavior, pruning, fast-forward-only merge, and short aliases.
 - `dot_ideavimrc` — IdeaVim settings and JetBrains action mappings for navigation, debugging, rename, find, and error traversal.
