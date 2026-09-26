@@ -45,7 +45,7 @@ chezmoi/
 - `.gitignore` — local ignore rules for repo-specific, non-versioned files.
 - `dot_claude/settings.json` — user Claude settings synced by chezmoi, including plugin enablement, fullscreen TUI, and a custom status line command.
 - `dot_claude/executable_statusline-command.sh` — shell script that renders Claude status line details such as model, effort, thinking mode, session name, context usage, and rate-limit windows.
-- `dot_config/Code/User/settings.json` — VS Code user settings (Linux path): Catppuccin Macchiato theme, VSCodeVim config mirroring `dot_vimrc`/`dot_ideavimrc` mappings, a 10-tab limit with wrapped tabs, and built-in AI features disabled.
+- `dot_config/Code/User/settings.json` — VS Code user settings (Linux path): Catppuccin Macchiato theme, VSCodeVim config mirroring `dot_vimrc`/`dot_ideavimrc` mappings, a 10-tab limit with wrapped tabs, built-in AI features disabled, and the ShellCheck extension pointed at the system `shellcheck` binary (`shellcheck-bin`).
 - `dot_config/ghostty/config.ghostty` — Ghostty terminal config: Catppuccin Macchiato theme, a 200x50 default window size, and ctrl+backspace mapped to delete the previous word.
 - `dot_config/starship.toml` — Starship prompt config with a compact single-line prompt and Git status modules.
 - `dot_gitconfig` — Git defaults and aliases, including `delta` integration, rebase-oriented pull behavior, pruning, fast-forward-only merge, and short aliases.

@@ -45,5 +45,8 @@
   "workbench.editor.wrapTabs": true,
 
   // Disable built-in AI (Copilot/chat) features
-  "chat.disableAIFeatures": true
+  "chat.disableAIFeatures": true,
+
+  // Use system shellcheck (shellcheck-bin) instead of the bundled binary
+  "shellcheck.executablePath": "/usr/bin/shellcheck"
 }
