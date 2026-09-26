@@ -48,11 +48,26 @@ sudo pacman -S --needed --noconfirm \
 
 # AUR packages
 paru -S --needed --noconfirm \
-  nordvpn-bin
+  nordvpn-bin \
+  visual-studio-code-bin \
+  shellcheck-bin
 
 # VPN daemons
 sudo systemctl enable --now tailscaled nordvpnd
 sudo usermod -aG nordvpn "$USER"
+
+# VS Code extensions
+extensions=(
+  vscodevim.vim
+  usernamehw.errorlens
+  editorconfig.editorconfig
+  catppuccin.catppuccin-vsc
+  timonwong.shellcheck
+  tamasfe.even-better-toml
+)
+for ext in "${extensions[@]}"; do
+  code --install-extension "$ext" --force
+done
 {{ else -}}
 echo "unsupported OS: {{ .chezmoi.os }}" >&2
 exit 1

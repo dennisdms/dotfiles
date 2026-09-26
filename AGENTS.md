@@ -10,6 +10,9 @@ chezmoi/
 │   ├── executable_statusline-command.sh
 │   └── settings.json
 ├── dot_config/
+│   ├── Code/
+│   │   └── User/
+│   │       └── settings.json
 │   ├── ghostty/
 │   │   └── config.ghostty
 │   └── starship.toml
@@ -42,6 +45,7 @@ chezmoi/
 - `.gitignore` — local ignore rules for repo-specific, non-versioned files.
 - `dot_claude/settings.json` — user Claude settings synced by chezmoi, including plugin enablement, fullscreen TUI, and a custom status line command.
 - `dot_claude/executable_statusline-command.sh` — shell script that renders Claude status line details such as model, effort, thinking mode, session name, context usage, and rate-limit windows.
+- `dot_config/Code/User/settings.json` — VS Code user settings (Linux path): Catppuccin Macchiato theme, VSCodeVim config mirroring `dot_vimrc`/`dot_ideavimrc` mappings, a 10-tab limit with wrapped tabs, and built-in AI features disabled.
 - `dot_config/ghostty/config.ghostty` — Ghostty terminal config: Catppuccin Macchiato theme, a 200x50 default window size, and ctrl+backspace mapped to delete the previous word.
 - `dot_config/starship.toml` — Starship prompt config with a compact single-line prompt and Git status modules.
 - `dot_gitconfig` — Git defaults and aliases, including `delta` integration, rebase-oriented pull behavior, pruning, fast-forward-only merge, and short aliases.
@@ -49,7 +53,7 @@ chezmoi/
 - `dot_vimrc` — base Vim configuration: search behavior, indentation, line numbers, status UI, and a clear-search mapping.
 - `dot_zshrc` — shell environment setup for SSH agent, SDKMAN, Claude, Homebrew, pnpm, fzf, atuin, cargo, zoxide, word-deletion boundaries, aliases, and Starship.
 - `run_once_install-homebrew.sh.tmpl` — macOS-only one-time bootstrap that installs Homebrew when it is missing; renders empty (skipped) on Linux.
-- `run_onchange_install-packages.sh.tmpl` — OS-specific CLI tool install: Homebrew on macOS; pacman (plus Tailscale) and paru for AUR packages (NordVPN) on CachyOS/Arch, enabling the VPN daemons; fails on unsupported OSes.
+- `run_onchange_install-packages.sh.tmpl` — OS-specific CLI tool install: Homebrew on macOS; pacman (plus Tailscale) and paru for AUR packages (NordVPN, VS Code, ShellCheck) plus a list of VS Code extensions (Vim, Error Lens, EditorConfig, Catppuccin, ShellCheck, Even Better TOML) on CachyOS/Arch, enabling the VPN daemons; fails on unsupported OSes.
 - `run_onchange_install-toolchains.sh` — shared script that installs Rust (`rustup`), SDKMAN, and Claude Code via their official installers.
 
 ## Notes for agents
