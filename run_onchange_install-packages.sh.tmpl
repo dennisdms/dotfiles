@@ -42,7 +42,17 @@ sudo pacman -S --needed --noconfirm \
   zsh \
   zip \
   unzip \
-  base-devel
+  base-devel \
+  paru \
+  tailscale
+
+# AUR packages
+paru -S --needed --noconfirm \
+  nordvpn-bin
+
+# VPN daemons
+sudo systemctl enable --now tailscaled nordvpnd
+sudo usermod -aG nordvpn "$USER"
 {{ else -}}
 echo "unsupported OS: {{ .chezmoi.os }}" >&2
 exit 1

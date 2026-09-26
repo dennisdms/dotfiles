@@ -44,7 +44,7 @@ chezmoi/
 - `dot_vimrc` — base Vim configuration: search behavior, indentation, line numbers, status UI, and a clear-search mapping.
 - `dot_zshrc` — shell environment setup for SSH agent, SDKMAN, Claude, Homebrew, pnpm, fzf, atuin, cargo, zoxide, aliases, and Starship.
 - `run_once_install-homebrew.sh.tmpl` — macOS-only one-time bootstrap that installs Homebrew when it is missing; renders empty (skipped) on Linux.
-- `run_onchange_install-packages.sh.tmpl` — OS-specific CLI tool install: Homebrew on macOS, pacman on CachyOS/Arch; fails on unsupported OSes.
+- `run_onchange_install-packages.sh.tmpl` — OS-specific CLI tool install: Homebrew on macOS; pacman (plus Tailscale) and paru for AUR packages (NordVPN) on CachyOS/Arch, enabling the VPN daemons; fails on unsupported OSes.
 - `run_onchange_install-toolchains.sh` — shared script that installs Rust (`rustup`), SDKMAN, and Claude Code via their official installers.
 
 ## Notes for agents
