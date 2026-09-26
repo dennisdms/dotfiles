@@ -57,3 +57,14 @@ chezmoi/
 - Prefer updating the mapped chezmoi source file instead of editing generated files in `$HOME`.
 - When documenting changes, refer to both the source path in this repo and the target path it manages when useful.
 - Exclude `.gitignore`d files and directories from repository structure and file inventories.
+
+## Cross-OS parity (CachyOS ↔ macOS)
+This repo targets both CachyOS (Arch) and macOS; keep installs and configs equivalent on both where it makes sense.
+- When adding or changing a package, app, extension, or config for one OS, ask the user whether they also want the equivalent change on the other OS (e.g. a pacman/paru package on CachyOS → a Homebrew formula/cask on macOS, and vice versa).
+- **Always ask before applying the change to the other OS. Never do it without explicit sign-off**, even if the equivalent seems obvious.
+- When asking, name the proposed equivalent (package name, install method, config path) so the user can confirm or correct it.
+- Skip the question for things that only make sense on one OS, but mention that you skipped it and why. Examples:
+  - macOS-only software or settings (e.g. Homebrew bootstrap, macOS-only casks/apps).
+  - Linux/CachyOS-only software or settings (e.g. systemd services, pacman/paru, Linux-only daemons).
+  - Tools with no reasonable equivalent on the other OS.
+- Config files that live at different paths per OS (e.g. VS Code user settings: `~/.config/Code/User/settings.json` on Linux vs `~/Library/Application Support/Code/User/settings.json` on macOS) need an OS-aware mapping; propose one rather than duplicating content silently.
