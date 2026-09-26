@@ -21,6 +21,9 @@ brew install \
   pnpm \
   node \
   zoxide
+
+# Apps
+brew install --cask obsidian spotify
 {{ else if and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "cachyos") (contains "arch" (.chezmoi.osRelease.idLike | default ""))) -}}
 # CLI tools
 sudo pacman -S --needed --noconfirm \
@@ -44,7 +47,9 @@ sudo pacman -S --needed --noconfirm \
   unzip \
   base-devel \
   paru \
-  tailscale
+  tailscale \
+  obsidian \
+  spotify-launcher
 
 # AUR packages
 paru -S --needed --noconfirm \
