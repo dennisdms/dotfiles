@@ -1,7 +1,7 @@
 # SSH Agent
 if [ -z "$SSH_AUTH_SOCK" ] && [ -x "$(command -v ssh-agent)" ]; then
-    eval "$(ssh-agent -s)"
-    ssh-add
+    eval "$(ssh-agent -s)" >/dev/null
+    ssh-add -q
 fi
 
 # SDKMAN
