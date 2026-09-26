@@ -36,6 +36,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # zoxide
 eval "$(zoxide init zsh)"
 
+# word deletion (ctrl+w) stops at / . - =
+WORDCHARS=${WORDCHARS//[\/.=-]}
+
 # aliases
 alias ls='eza -la --git'
 alias lt='eza --tree --level=3'
