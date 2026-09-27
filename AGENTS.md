@@ -51,7 +51,7 @@ chezmoi/
 - `dot_gitconfig` — Git defaults and aliases, including `delta` integration, rebase-oriented pull behavior, pruning, fast-forward-only merge, and short aliases.
 - `dot_ideavimrc` — IdeaVim settings and JetBrains action mappings for navigation, debugging, rename, find, and error traversal.
 - `dot_vimrc` — base Vim configuration: search behavior, indentation, line numbers, status UI, and a clear-search mapping.
-- `dot_zshrc` — shell environment setup for SSH agent, SDKMAN, Claude, Homebrew, pnpm, fzf, atuin, cargo, zoxide, word-deletion boundaries, aliases, and Starship.
+- `dot_zshrc` — shell environment setup for SSH agent, SDKMAN, Claude, Homebrew, pnpm, fzf, atuin, cargo, zoxide, word-deletion and ctrl+arrow word-navigation bindings, aliases, and Starship.
 - `run_once_install-homebrew.sh.tmpl` — macOS-only one-time bootstrap that installs Homebrew when it is missing; renders empty (skipped) on Linux.
 - `run_onchange_install-packages.sh.tmpl` — OS-specific CLI tool install: Homebrew on macOS (CLI formulae plus the Obsidian and Spotify casks); pacman (plus Tailscale, Obsidian, and spotify-launcher) and paru for AUR packages (NordVPN, VS Code, ShellCheck) plus a list of VS Code extensions (Vim, Error Lens, EditorConfig, Tokyo Night, ShellCheck, Even Better TOML) on CachyOS/Arch, enabling the VPN daemons; fails on unsupported OSes.
 - `run_onchange_install-toolchains.sh` — shared script that installs Rust (`rustup`), SDKMAN, and Claude Code via their official installers.

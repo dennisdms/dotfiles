@@ -39,6 +39,10 @@ eval "$(zoxide init zsh)"
 # word deletion (ctrl+w) stops at / . - =
 WORDCHARS=${WORDCHARS//[\/.=-]}
 
+# word navigation (ctrl+left/right)
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+
 # aliases
 alias ls='eza -la --git'
 alias lt='eza --tree --level=3'
