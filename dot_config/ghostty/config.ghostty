@@ -1,4 +1,4 @@
-theme = Catppuccin Macchiato
+theme = TokyoNight Night
 window-width = 200
 window-height = 50
 keybind = ctrl+backspace=text:\x17

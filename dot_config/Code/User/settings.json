@@ -37,7 +37,7 @@
   ],
 
   // Theme — matches Ghostty
-  "workbench.colorTheme": "Catppuccin Macchiato",
+  "workbench.colorTheme": "Tokyo Night",
 
   // Tabs: at most 10 open, wrapped onto multiple rows instead of scrolling
   "workbench.editor.limit.enabled": true,
