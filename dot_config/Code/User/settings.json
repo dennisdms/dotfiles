@@ -48,5 +48,8 @@
   "chat.disableAIFeatures": true,
 
   // Use system shellcheck (shellcheck-bin) instead of the bundled binary
-  "shellcheck.executablePath": "/usr/bin/shellcheck"
+  "shellcheck.executablePath": "/usr/bin/shellcheck",
+
+  // Run SQLTools drivers (e.g. SQLite's native module) under system Node, not VS Code's Electron
+  "sqltools.useNodeRuntime": true
 }
