@@ -49,5 +49,15 @@ alias lt='eza --tree --level=3'
 alias j='z'
 alias jj='zi'
 
+# scratch <name>: create and cd into ~/scratch/<timestamp>-<name>
+scratch() {
+    if [ $# -ne 1 ]; then
+        echo "usage: scratch <name>" >&2
+        return 1
+    fi
+    local dir="$HOME/scratch/$(date +%Y-%m-%d_%H%M%S)-$1"
+    mkdir -p "$dir" && cd "$dir"
+}
+
 # Starship
 eval "$(starship init zsh)"
