@@ -1,0 +1,25 @@
+onboarding = false
+
+[keys]
+prefix = "ctrl+space"
+next_agent = "ctrl+alt+j"
+previous_agent = "ctrl+alt+k"
+focus_pane_left = ["prefix+h", "alt+h"]
+focus_pane_down = ["prefix+j", "alt+j"]
+focus_pane_up = ["prefix+k", "alt+k"]
+focus_pane_right = ["prefix+l", "alt+l"]
+previous_tab = ["prefix+p", "ctrl+alt+["]
+next_tab = ["prefix+n", "ctrl+alt+]"]
+
+[[keys.command]]
+key = "prefix+shift+c"
+type = "shell"
+command = 'code "${HERDR_ACTIVE_PANE_CWD:-.}"'
+description = "open pane cwd in VS Code"
+
+[ui]
+status_indicators = "symbols"
+
+[theme]
+name = "tokyo-night"
+auto_switch = false

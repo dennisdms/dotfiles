@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=herdr
+Comment=Terminal workspace manager for AI coding agents
+Exec=ghostty --class=dev.herdr.Herdr --window-decoration=server -e herdr
+Icon=com.mitchellh.ghostty
+Terminal=false
+Categories=Development;
+StartupWMClass=dev.herdr.Herdr
