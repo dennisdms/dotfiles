@@ -7,6 +7,7 @@ This repository is a small `chezmoi`-managed dotfiles setup for shell, editor, G
 ```text
 chezmoi/
 ├── dot_claude/
+│   ├── CLAUDE.md
 │   ├── executable_statusline-command.sh
 │   └── settings.json
 ├── dot_config/
@@ -43,6 +44,7 @@ chezmoi/
 - `CLAUDE.md` — Claude entrypoint that imports shared repository context from `@AGENTS.md`.
 - `.chezmoiignore` — keeps repo-only docs (`AGENTS.md`, `CLAUDE.md`, `README.md`) from being applied into `$HOME`.
 - `.gitignore` — local ignore rules for repo-specific, non-versioned files.
+- `dot_claude/CLAUDE.md` — global Claude instructions (`~/.claude/CLAUDE.md`): says Claude usually runs inside herdr and should read `herdr --skill` before herdr-related actions, without using herdr unprompted.
 - `dot_claude/settings.json` — user Claude settings synced by chezmoi, including plugin enablement, fullscreen TUI, and a custom status line command.
 - `dot_claude/executable_statusline-command.sh` — shell script that renders Claude status line details such as model, effort, thinking mode, session name, context usage, and rate-limit windows.
 - `dot_config/Code/User/settings.json` — VS Code user settings (Linux path): Tokyo Night theme, VSCodeVim config mirroring `dot_vimrc`/`dot_ideavimrc` mappings, a 10-tab limit with wrapped tabs, built-in AI features disabled, the ShellCheck extension pointed at the system `shellcheck` binary (`shellcheck-bin`), and SQLTools set to run drivers under the system Node runtime.
