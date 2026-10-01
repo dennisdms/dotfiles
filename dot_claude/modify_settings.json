@@ -1,0 +1,26 @@
+#!/bin/sh
+# chezmoi modify_ script for ~/.claude/settings.json.
+# Receives the current file on stdin and deep-merges the managed keys below
+# into it, so settings Claude Code writes itself (/config, plugins,
+# permissions) are kept. Managed keys win on conflict.
+set -eu
+
+managed='{
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "tui": "fullscreen",
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  }
+}'
+
+current=$(cat)
+[ -n "$current" ] || current='{}'
+
+printf '%s\n' "$current" | jq --argjson managed "$managed" '. * $managed'

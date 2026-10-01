@@ -9,7 +9,7 @@ chezmoi/
 ├── dot_claude/
 │   ├── CLAUDE.md
 │   ├── executable_statusline-command.sh
-│   └── settings.json
+│   └── modify_settings.json
 ├── dot_config/
 │   ├── Code/
 │   │   └── User/
@@ -36,6 +36,7 @@ chezmoi/
 - Example: `dot_zshrc` becomes `~/.zshrc` and `dot_config/starship.toml` becomes `~/.config/starship.toml`.
 - `run_once_*` scripts run once.
 - `run_onchange_*` scripts rerun when their contents change.
+- `modify_*` scripts receive the current target file on stdin and print the new contents; used for files an app also writes to.
 - Files ending in `.tmpl` are rendered as Go templates; a `run_` script that renders empty is skipped (used to gate scripts by OS).
 
 ## File descriptions
@@ -45,7 +46,7 @@ chezmoi/
 - `.chezmoiignore` — keeps repo-only docs (`AGENTS.md`, `CLAUDE.md`, `README.md`) from being applied into `$HOME`.
 - `.gitignore` — local ignore rules for repo-specific, non-versioned files.
 - `dot_claude/CLAUDE.md` — global Claude instructions (`~/.claude/CLAUDE.md`): says Claude usually runs inside herdr and should read `herdr --skill` before herdr-related actions, without using herdr unprompted.
-- `dot_claude/settings.json` — user Claude settings synced by chezmoi, including plugin enablement, fullscreen TUI, and a custom status line command.
+- `dot_claude/modify_settings.json` — chezmoi `modify_` script that uses `jq` to deep-merge managed Claude settings (plugin enablement, fullscreen TUI, custom status line command, empty attribution) into `~/.claude/settings.json`, keeping keys Claude Code writes itself.
 - `dot_claude/executable_statusline-command.sh` — shell script that renders Claude status line details such as model, effort, thinking mode, session name, context usage, and rate-limit windows.
 - `dot_config/Code/User/settings.json` — VS Code user settings (Linux path): Tokyo Night theme, VSCodeVim config mirroring `dot_vimrc`/`dot_ideavimrc` mappings, a 10-tab limit with wrapped tabs, built-in AI features disabled, the ShellCheck extension pointed at the system `shellcheck` binary (`shellcheck-bin`), and SQLTools set to run drivers under the system Node runtime.
 - `dot_config/ghostty/config.ghostty` — Ghostty terminal config: Tokyo Night theme, a 200x50 default window size, and ctrl+backspace mapped to delete the previous word.
