@@ -21,5 +21,5 @@ description = "open pane cwd in VS Code"
 status_indicators = "symbols"
 
 [theme]
-name = "tokyo-night"
+name = "gruvbox"
 auto_switch = false

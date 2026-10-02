@@ -1,4 +1,4 @@
-theme = TokyoNight Night
+theme = Gruvbox Dark
 window-width = 200
 window-height = 50
 keybind = ctrl+backspace=text:\x17
