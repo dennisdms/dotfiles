@@ -46,6 +46,10 @@ description = "open pane cwd in VS Code"
 [ui]
 status_indicators = "symbols"
 
+# Claude session title, wrapped by ~/.claude/herdr-session-title.sh
+[ui.sidebar.agents.rows_by_agent]
+claude = [["state_icon", "machine", "workspace", "tab"], ["$title1"], ["$title2"], ["$title3"], ["agent"]]
+
 [theme]
 name = "gruvbox"
 auto_switch = false

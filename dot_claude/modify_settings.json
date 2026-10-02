@@ -17,6 +17,14 @@ managed='{
   "attribution": {
     "commit": "",
     "pr": ""
+  },
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [{ "type": "command", "command": "bash ~/.claude/herdr-session-title.sh" }] }
+    ],
+    "Stop": [
+      { "hooks": [{ "type": "command", "command": "bash ~/.claude/herdr-session-title.sh" }] }
+    ]
   }
 }'
 

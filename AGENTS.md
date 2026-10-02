@@ -8,6 +8,7 @@ This repository is a small `chezmoi`-managed dotfiles setup for shell, editor, G
 chezmoi/
 ├── dot_claude/
 │   ├── CLAUDE.md
+│   ├── executable_herdr-session-title.sh
 │   ├── executable_statusline-command.sh
 │   └── modify_settings.json
 ├── dot_config/
@@ -52,11 +53,12 @@ chezmoi/
 - `.chezmoiignore` — keeps repo-only docs (`AGENTS.md`, `CLAUDE.md`, `README.md`) from being applied into `$HOME`, and skips `.local/share/applications` on non-Linux systems.
 - `.gitignore` — local ignore rules for repo-specific, non-versioned files.
 - `dot_claude/CLAUDE.md` — global Claude instructions (`~/.claude/CLAUDE.md`): says Claude usually runs inside herdr and should read `herdr --skill` before herdr-related actions, without using herdr unprompted.
-- `dot_claude/modify_settings.json` — chezmoi `modify_` script that uses `jq` to deep-merge managed Claude settings (plugin enablement, fullscreen TUI, custom status line command, empty attribution) into `~/.claude/settings.json`, keeping keys Claude Code writes itself.
+- `dot_claude/modify_settings.json` — chezmoi `modify_` script that uses `jq` to deep-merge managed Claude settings (plugin enablement, fullscreen TUI, custom status line command, empty attribution, SessionStart/Stop hooks for the herdr session title) into `~/.claude/settings.json`, keeping keys Claude Code writes itself.
+- `dot_claude/executable_herdr-session-title.sh` — Claude Code SessionStart/Stop hook that reads the session title (`/rename` name, else the generated title) from the transcript and reports it to herdr as `$title1..$title3` pane tokens, word-wrapped at 22 columns with an ellipsis on overflow; no-op outside herdr.
 - `dot_claude/executable_statusline-command.sh` — shell script that renders Claude status line details such as model, effort, thinking mode, session name, context usage, and rate-limit windows.
 - `dot_config/Code/User/settings.json` — VS Code user settings (Linux path): Gruvbox Dark theme, VSCodeVim config mirroring `dot_vimrc`/`dot_ideavimrc` mappings, a 10-tab limit with wrapped tabs, built-in AI features disabled, the ShellCheck extension pointed at the system `shellcheck` binary (`shellcheck-bin`), and SQLTools set to run drivers under the system Node runtime.
 - `dot_config/ghostty/config.ghostty` — Ghostty terminal config: Gruvbox Dark theme, a 200x50 default window size, and ctrl+backspace mapped to delete the previous word.
-- `dot_config/herdr/config.toml` — herdr config (same path on Linux and macOS): skips onboarding, sets the prefix to ctrl+space, binds ctrl+alt+j/k to next/previous agent, alt+h/j/k/l to pane focus, and ctrl+alt+[/] to previous/next tab (prefix defaults kept), adds a prefix+shift+c custom command that opens the focused pane's directory in VS Code, uses symbol status indicators, and sets the Gruvbox theme.
+- `dot_config/herdr/config.toml` — herdr config (same path on Linux and macOS): skips onboarding, sets the prefix to ctrl+space and a full keymap (agent picker on prefix+space/ctrl+alt+space, ctrl+alt+j/k agents, ctrl+alt+n/p workspaces, ctrl+alt+w workspace picker, ctrl+alt+1..9 and ctrl+alt+[/] tabs, alt+h/j/k/l pane focus, prefix+g/G/ctrl+g worktrees, prefix+v/s splits, prefix+m resize, settings moved to prefix+comma), adds a prefix+shift+c custom command that opens the focused pane's directory in VS Code, uses symbol status indicators, shows the wrapped Claude session title rows for claude agents in the sidebar, and sets the Gruvbox theme.
 - `dot_local/share/applications/dev.herdr.Herdr.desktop` — Linux-only desktop entry (`~/.local/share/applications/`) that launches herdr in its own Ghostty window with the thin KDE server-side titlebar instead of the GTK header (`--class=dev.herdr.Herdr`, `--window-decoration=server`).
 - `dot_config/starship.toml` — Starship prompt config with a compact single-line prompt and Git status modules.
 - `dot_gitconfig` — Git defaults and aliases, including `delta` integration, rebase-oriented pull behavior, pruning, fast-forward-only merge, and short aliases.
