@@ -15,10 +15,14 @@ chezmoi/
 │   ├── Code/
 │   │   └── User/
 │   │       └── settings.json
+│   ├── environment.d/
+│   │   └── gaming.conf
 │   ├── ghostty/
 │   │   └── config.ghostty
 │   ├── herdr/
 │   │   └── config.toml
+│   ├── MangoHud/
+│   │   └── MangoHud.conf
 │   └── starship.toml
 ├── dot_docker/
 │   └── modify_config.json
@@ -53,13 +57,15 @@ chezmoi/
 - `README.md` — quick notes for adding, editing, applying, and bootstrapping the chezmoi repo.
 - `AGENTS.md` — repository guidance for coding agents, including structure, chezmoi naming, and file inventory.
 - `CLAUDE.md` — Claude entrypoint that imports shared repository context from `@AGENTS.md`.
-- `.chezmoiignore` — keeps repo-only docs (`AGENTS.md`, `CLAUDE.md`, `README.md`) from being applied into `$HOME`, skips `.local/share/applications` on non-Linux systems, and skips `.docker` on non-macOS systems.
+- `.chezmoiignore` — keeps repo-only docs (`AGENTS.md`, `CLAUDE.md`, `README.md`) from being applied into `$HOME`, skips `.local/share/applications`, `.config/MangoHud`, and `.config/environment.d` on non-Linux systems, and skips `.docker` on non-macOS systems.
 - `.gitignore` — local ignore rules for repo-specific, non-versioned files.
 - `dot_claude/CLAUDE.md` — global Claude instructions (`~/.claude/CLAUDE.md`): says Claude usually runs inside herdr and should read `herdr --skill` before herdr-related actions, without using herdr unprompted.
 - `dot_claude/modify_settings.json` — chezmoi `modify_` script that uses `jq` to deep-merge managed Claude settings (plugin enablement, fullscreen TUI, custom status line command, empty attribution, SessionStart/Stop hooks for the herdr session title) into `~/.claude/settings.json`, keeping keys Claude Code writes itself; hook lists are unioned per event so hooks other tools register (e.g. herdr's session-resume hook) survive.
 - `dot_claude/executable_herdr-session-title.sh` — Claude Code SessionStart/Stop hook that reads the session title (`/rename` name, else the generated title) from the transcript and reports it to herdr as `$title1..$title3` pane tokens, word-wrapped at 22 columns with an ellipsis on overflow; no-op outside herdr.
 - `dot_claude/executable_statusline-command.sh` — shell script that renders Claude status line details such as model, effort, thinking mode, session name, context usage, and rate-limit windows.
 - `dot_config/Code/User/settings.json` — VS Code user settings (Linux path): Gruvbox Dark theme, VSCodeVim config mirroring `dot_vimrc`/`dot_ideavimrc` mappings, a 10-tab limit with wrapped tabs, built-in AI features disabled, the ShellCheck extension pointed at the system `shellcheck` binary (`shellcheck-bin`), and SQLTools set to run drivers under the system Node runtime.
+- `dot_config/environment.d/gaming.conf` — Linux-only systemd user session environment (`~/.config/environment.d/gaming.conf`, picked up after re-login): `MANGOHUD=1` to load the MangoHud Vulkan layer in every game, and `__GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1` so the NVIDIA driver keeps its shader cache.
+- `dot_config/MangoHud/MangoHud.conf` — Linux-only MangoHud overlay config (`~/.config/MangoHud/MangoHud.conf`): compact top-left HUD with fps, frametime graph, GPU/VRAM, CPU, RAM, network (`enp42s0`), Wine and resolution; an fps limit cycling 144 → 60 → unlimited on Shift_L+F1, HUD toggle on Shift_R+F12, and a blacklist of non-game Vulkan apps.
 - `dot_config/ghostty/config.ghostty` — Ghostty terminal config: Gruvbox Dark theme, a 200x50 default window size, and ctrl+backspace mapped to delete the previous word.
 - `dot_config/herdr/config.toml` — herdr config (same path on Linux and macOS): skips onboarding, sets the prefix to ctrl+space and a full keymap (agent picker on prefix+space/ctrl+alt+space, ctrl+alt+j/k agents, ctrl+alt+n/p workspaces, ctrl+alt+w workspace picker, ctrl+alt+1..9 and ctrl+alt+[/] tabs, alt+h/j/k/l pane focus, prefix+g/G/ctrl+g worktrees, prefix+v/s splits, prefix+m resize, settings moved to prefix+comma), adds a prefix+shift+c custom command that opens the focused pane's directory in VS Code, uses symbol status indicators, shows the wrapped Claude session title rows for claude agents in the sidebar, and sets the Gruvbox theme.
 - `dot_docker/modify_config.json` — macOS-only chezmoi `modify_` script that uses `jq` to merge `cliPluginsExtraDirs` (Homebrew's `/opt/homebrew/lib/docker/cli-plugins`) into `~/.docker/config.json` so `docker compose` finds the Homebrew plugin, keeping keys Docker writes itself.
@@ -70,7 +76,7 @@ chezmoi/
 - `dot_vimrc` — base Vim configuration: search behavior, indentation, line numbers, status UI, and a clear-search mapping.
 - `dot_zshrc` — shell environment setup for SSH agent, SDKMAN, Claude, Homebrew, pnpm, fzf, atuin, cargo, zoxide, word-deletion and ctrl+arrow word-navigation bindings, aliases, a `scratch` function for timestamped scratch folders, and Starship.
 - `run_once_before_install-homebrew.sh.tmpl` — macOS-only one-time bootstrap that installs Homebrew when it is missing, run before files are applied; renders empty (skipped) on Linux.
-- `run_onchange_before_install-packages.sh.tmpl` — OS-specific CLI tool install, run before files are applied so `jq` exists for the `modify_` scripts: Homebrew on macOS (CLI formulae including herdr, jq, and Colima with the Docker and Docker Compose CLIs, starting Colima as a login service, plus the Obsidian and Spotify casks); pacman (plus jq, Tailscale, Docker with Compose and Buildx, Obsidian, and spotify-launcher) and paru for AUR packages (NordVPN, VS Code, ShellCheck, herdr) plus a list of VS Code extensions (Vim, Error Lens, EditorConfig, Gruvbox, ShellCheck, Even Better TOML, SQLTools) on CachyOS/Arch, enabling the VPN and Docker daemons and adding the user to the `docker` group; fails on unsupported OSes.
+- `run_onchange_before_install-packages.sh.tmpl` — OS-specific CLI tool install, run before files are applied so `jq` exists for the `modify_` scripts: Homebrew on macOS (CLI formulae including herdr, jq, and Colima with the Docker and Docker Compose CLIs, starting Colima as a login service, plus the Obsidian and Spotify casks); pacman (plus jq, Tailscale, Docker with Compose and Buildx, Obsidian, spotify-launcher, MangoHud, nvtop, and power-profiles-daemon) and paru for AUR packages (NordVPN, VS Code, ShellCheck, herdr) plus a list of VS Code extensions (Vim, Error Lens, EditorConfig, Gruvbox, ShellCheck, Even Better TOML, SQLTools) on CachyOS/Arch, enabling the VPN and Docker daemons, adding the user to the `docker` group, and setting the persistent `performance` power profile; fails on unsupported OSes.
 - `run_onchange_install-toolchains.sh` — shared script that installs Rust (`rustup`), SDKMAN, and Claude Code via their official installers.
 
 ## Notes for agents

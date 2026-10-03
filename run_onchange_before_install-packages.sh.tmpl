@@ -61,7 +61,10 @@ sudo pacman -S --needed --noconfirm \
   docker-compose \
   docker-buildx \
   obsidian \
-  spotify-launcher
+  spotify-launcher \
+  mangohud \
+  nvtop \
+  power-profiles-daemon
 
 # AUR packages
 paru -S --needed --noconfirm \
@@ -77,6 +80,10 @@ sudo usermod -aG nordvpn "$USER"
 # Docker daemon; docker group allows running docker without sudo
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"
+
+# Performance power profile for gaming; power-profiles-daemon persists it across reboots
+sudo systemctl enable --now power-profiles-daemon
+powerprofilesctl set performance
 
 # VS Code extensions
 extensions=(
