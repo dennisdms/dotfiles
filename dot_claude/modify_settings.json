@@ -31,4 +31,12 @@ managed='{
 current=$(cat)
 [ -n "$current" ] || current='{}'
 
-printf '%s\n' "$current" | jq --argjson managed "$managed" '. * $managed'
+# jq's `*` replaces arrays, which would drop hooks other tools register
+# (e.g. herdr's session hook), so hook lists are unioned per event instead.
+printf '%s\n' "$current" | jq --argjson managed "$managed" '
+  (.hooks // {}) as $hooks
+  | . * ($managed | del(.hooks))
+  | .hooks = reduce ($managed.hooks | to_entries[]) as $e ($hooks;
+      .[$e.key] = ((.[$e.key] // []) as $have
+        | $have + [$e.value[] | select(. as $x | any($have[]; . == $x) | not)]))
+'
