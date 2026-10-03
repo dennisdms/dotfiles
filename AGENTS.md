@@ -20,6 +20,8 @@ chezmoi/
 │   ├── herdr/
 │   │   └── config.toml
 │   └── starship.toml
+├── dot_docker/
+│   └── modify_config.json
 ├── dot_local/
 │   └── share/
 │       └── applications/
@@ -29,8 +31,8 @@ chezmoi/
 ├── dot_ideavimrc
 ├── dot_vimrc
 ├── dot_zshrc
-├── run_once_install-homebrew.sh.tmpl
-├── run_onchange_install-packages.sh.tmpl
+├── run_once_before_install-homebrew.sh.tmpl
+├── run_onchange_before_install-packages.sh.tmpl
 ├── run_onchange_install-toolchains.sh
 ├── AGENTS.md
 ├── CLAUDE.md
@@ -43,6 +45,7 @@ chezmoi/
 - Example: `dot_zshrc` becomes `~/.zshrc` and `dot_config/starship.toml` becomes `~/.config/starship.toml`.
 - `run_once_*` scripts run once.
 - `run_onchange_*` scripts rerun when their contents change.
+- `run_*_before_*` scripts run before any files are applied; plain `run_*` scripts run interleaved with files in alphabetical target order.
 - `modify_*` scripts receive the current target file on stdin and print the new contents; used for files an app also writes to.
 - Files ending in `.tmpl` are rendered as Go templates; a `run_` script that renders empty is skipped (used to gate scripts by OS).
 
@@ -50,7 +53,7 @@ chezmoi/
 - `README.md` — quick notes for adding, editing, applying, and bootstrapping the chezmoi repo.
 - `AGENTS.md` — repository guidance for coding agents, including structure, chezmoi naming, and file inventory.
 - `CLAUDE.md` — Claude entrypoint that imports shared repository context from `@AGENTS.md`.
-- `.chezmoiignore` — keeps repo-only docs (`AGENTS.md`, `CLAUDE.md`, `README.md`) from being applied into `$HOME`, and skips `.local/share/applications` on non-Linux systems.
+- `.chezmoiignore` — keeps repo-only docs (`AGENTS.md`, `CLAUDE.md`, `README.md`) from being applied into `$HOME`, skips `.local/share/applications` on non-Linux systems, and skips `.docker` on non-macOS systems.
 - `.gitignore` — local ignore rules for repo-specific, non-versioned files.
 - `dot_claude/CLAUDE.md` — global Claude instructions (`~/.claude/CLAUDE.md`): says Claude usually runs inside herdr and should read `herdr --skill` before herdr-related actions, without using herdr unprompted.
 - `dot_claude/modify_settings.json` — chezmoi `modify_` script that uses `jq` to deep-merge managed Claude settings (plugin enablement, fullscreen TUI, custom status line command, empty attribution, SessionStart/Stop hooks for the herdr session title) into `~/.claude/settings.json`, keeping keys Claude Code writes itself.
@@ -59,14 +62,15 @@ chezmoi/
 - `dot_config/Code/User/settings.json` — VS Code user settings (Linux path): Gruvbox Dark theme, VSCodeVim config mirroring `dot_vimrc`/`dot_ideavimrc` mappings, a 10-tab limit with wrapped tabs, built-in AI features disabled, the ShellCheck extension pointed at the system `shellcheck` binary (`shellcheck-bin`), and SQLTools set to run drivers under the system Node runtime.
 - `dot_config/ghostty/config.ghostty` — Ghostty terminal config: Gruvbox Dark theme, a 200x50 default window size, and ctrl+backspace mapped to delete the previous word.
 - `dot_config/herdr/config.toml` — herdr config (same path on Linux and macOS): skips onboarding, sets the prefix to ctrl+space and a full keymap (agent picker on prefix+space/ctrl+alt+space, ctrl+alt+j/k agents, ctrl+alt+n/p workspaces, ctrl+alt+w workspace picker, ctrl+alt+1..9 and ctrl+alt+[/] tabs, alt+h/j/k/l pane focus, prefix+g/G/ctrl+g worktrees, prefix+v/s splits, prefix+m resize, settings moved to prefix+comma), adds a prefix+shift+c custom command that opens the focused pane's directory in VS Code, uses symbol status indicators, shows the wrapped Claude session title rows for claude agents in the sidebar, and sets the Gruvbox theme.
+- `dot_docker/modify_config.json` — macOS-only chezmoi `modify_` script that uses `jq` to merge `cliPluginsExtraDirs` (Homebrew's `/opt/homebrew/lib/docker/cli-plugins`) into `~/.docker/config.json` so `docker compose` finds the Homebrew plugin, keeping keys Docker writes itself.
 - `dot_local/share/applications/dev.herdr.Herdr.desktop` — Linux-only desktop entry (`~/.local/share/applications/`) that launches herdr in its own Ghostty window with the thin KDE server-side titlebar instead of the GTK header (`--class=dev.herdr.Herdr`, `--window-decoration=server`).
 - `dot_config/starship.toml` — Starship prompt config with a compact single-line prompt and Git status modules.
 - `dot_gitconfig` — Git defaults and aliases, including `delta` integration, rebase-oriented pull behavior, pruning, fast-forward-only merge, and short aliases.
 - `dot_ideavimrc` — IdeaVim settings and JetBrains action mappings for navigation, debugging, rename, find, and error traversal.
 - `dot_vimrc` — base Vim configuration: search behavior, indentation, line numbers, status UI, and a clear-search mapping.
 - `dot_zshrc` — shell environment setup for SSH agent, SDKMAN, Claude, Homebrew, pnpm, fzf, atuin, cargo, zoxide, word-deletion and ctrl+arrow word-navigation bindings, aliases, a `scratch` function for timestamped scratch folders, and Starship.
-- `run_once_install-homebrew.sh.tmpl` — macOS-only one-time bootstrap that installs Homebrew when it is missing; renders empty (skipped) on Linux.
-- `run_onchange_install-packages.sh.tmpl` — OS-specific CLI tool install: Homebrew on macOS (CLI formulae including herdr, plus the Obsidian and Spotify casks); pacman (plus Tailscale, Obsidian, and spotify-launcher) and paru for AUR packages (NordVPN, VS Code, ShellCheck, herdr) plus a list of VS Code extensions (Vim, Error Lens, EditorConfig, Gruvbox, ShellCheck, Even Better TOML, SQLTools) on CachyOS/Arch, enabling the VPN daemons; fails on unsupported OSes.
+- `run_once_before_install-homebrew.sh.tmpl` — macOS-only one-time bootstrap that installs Homebrew when it is missing, run before files are applied; renders empty (skipped) on Linux.
+- `run_onchange_before_install-packages.sh.tmpl` — OS-specific CLI tool install, run before files are applied so `jq` exists for the `modify_` scripts: Homebrew on macOS (CLI formulae including herdr, jq, and Colima with the Docker and Docker Compose CLIs, starting Colima as a login service, plus the Obsidian and Spotify casks); pacman (plus jq, Tailscale, Docker with Compose and Buildx, Obsidian, and spotify-launcher) and paru for AUR packages (NordVPN, VS Code, ShellCheck, herdr) plus a list of VS Code extensions (Vim, Error Lens, EditorConfig, Gruvbox, ShellCheck, Even Better TOML, SQLTools) on CachyOS/Arch, enabling the VPN and Docker daemons and adding the user to the `docker` group; fails on unsupported OSes.
 - `run_onchange_install-toolchains.sh` — shared script that installs Rust (`rustup`), SDKMAN, and Claude Code via their official installers.
 
 ## Notes for agents

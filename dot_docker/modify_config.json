@@ -1,0 +1,16 @@
+#!/bin/sh
+# chezmoi modify_ script for ~/.docker/config.json (macOS only, see
+# .chezmoiignore). Receives the current file on stdin and deep-merges the
+# managed keys below into it, so keys Docker writes itself (auths,
+# currentContext) are kept. Points Docker at Homebrew's CLI plugin dir so
+# `docker compose` finds the docker-compose plugin.
+set -eu
+
+managed='{
+  "cliPluginsExtraDirs": ["/opt/homebrew/lib/docker/cli-plugins"]
+}'
+
+current=$(cat)
+[ -n "$current" ] || current='{}'
+
+printf '%s\n' "$current" | jq --argjson managed "$managed" '. * $managed'
