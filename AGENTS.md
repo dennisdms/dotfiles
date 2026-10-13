@@ -40,6 +40,7 @@ chezmoi/
 ├── run_onchange_install-toolchains.sh
 ├── AGENTS.md
 ├── CLAUDE.md
+├── .chezmoiexternal.toml
 ├── .chezmoiignore
 └── .gitignore
 ```
@@ -51,12 +52,14 @@ chezmoi/
 - `run_onchange_*` scripts rerun when their contents change.
 - `run_*_before_*` scripts run before any files are applied; plain `run_*` scripts run interleaved with files in alphabetical target order.
 - `modify_*` scripts receive the current target file on stdin and print the new contents; used for files an app also writes to.
+- `.chezmoiexternal.toml` declares files fetched from elsewhere (e.g. GitHub archives) at apply time instead of being stored in the repo.
 - Files ending in `.tmpl` are rendered as Go templates; a `run_` script that renders empty is skipped (used to gate scripts by OS).
 
 ## File descriptions
 - `README.md` — quick notes for adding, editing, applying, and bootstrapping the chezmoi repo.
 - `AGENTS.md` — repository guidance for coding agents, including structure, chezmoi naming, and file inventory.
 - `CLAUDE.md` — Claude entrypoint that imports shared repository context from `@AGENTS.md`.
+- `.chezmoiexternal.toml` — chezmoi externals: pulls the `obsidian-cli` and `obsidian-markdown` Claude Code skills from `kepano/obsidian-skills` (pinned to a commit; bump the sha in both URLs to update) into `~/.claude/skills/`.
 - `.chezmoiignore` — keeps repo-only docs (`AGENTS.md`, `CLAUDE.md`, `README.md`) from being applied into `$HOME`, skips `.local/share/applications`, `.config/MangoHud`, and `.config/environment.d` on non-Linux systems, and skips `.docker` on non-macOS systems.
 - `.gitignore` — local ignore rules for repo-specific, non-versioned files.
 - `dot_claude/CLAUDE.md` — global Claude instructions (`~/.claude/CLAUDE.md`): says Claude usually runs inside herdr and should read `herdr --skill` before herdr-related actions, without using herdr unprompted.

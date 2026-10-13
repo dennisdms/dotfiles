@@ -1,0 +1,15 @@
+# Claude Code skills from kepano/obsidian-skills (Steph Ango / Obsidian),
+# pinned to a commit. To update: bump the sha in both URLs, then `chezmoi apply`.
+# https://github.com/kepano/obsidian-skills
+
+[".claude/skills/obsidian-cli"]
+    type = "archive"
+    url = "https://github.com/kepano/obsidian-skills/archive/3ccff5338ea700537839b21900aa5358a0402c98.tar.gz"
+    stripComponents = 3
+    include = ["*/skills/obsidian-cli/**"]
+
+[".claude/skills/obsidian-markdown"]
+    type = "archive"
+    url = "https://github.com/kepano/obsidian-skills/archive/3ccff5338ea700537839b21900aa5358a0402c98.tar.gz"
+    stripComponents = 3
+    include = ["*/skills/obsidian-markdown/**"]
