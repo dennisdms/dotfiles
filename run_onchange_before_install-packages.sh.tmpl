@@ -5,35 +5,39 @@ set -e
 # Source brew into PATH — scripts don't inherit shell environment
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# CLI tools
-brew install \
-  git \
-  gh \
-  ghq \
-  fzf \
-  starship \
-  bat \
-  eza \
-  git-delta \
-  chezmoi \
-  atuin \
-  uv \
-  pnpm \
-  node \
-  jq \
-  bash \
-  zoxide \
-  herdr \
-  cloudflared \
-  colima \
-  docker \
-  docker-compose
+# Hide Homebrew's "set HOMEBREW_* to disable this" hints
+export HOMEBREW_NO_ENV_HINTS=1
 
+# brew bundle skips what is already installed instead of warning per package
+brew bundle --quiet --file=- <<'EOF'
+# CLI tools
+brew "git"
+brew "gh"
+brew "ghq"
+brew "fzf"
+brew "starship"
+brew "bat"
+brew "eza"
+brew "git-delta"
+brew "chezmoi"
+brew "atuin"
+brew "uv"
+brew "pnpm"
+brew "node"
+brew "jq"
+brew "bash"
+brew "zoxide"
+brew "herdr"
+brew "cloudflared"
 # Start the Colima VM now and at login so docker works without `colima start`
-brew services start colima
+brew "colima", start_service: true
+brew "docker"
+brew "docker-compose"
 
 # Apps
-brew install --cask obsidian spotify
+cask "obsidian"
+cask "spotify"
+EOF
 {{ else if and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "cachyos") (contains "arch" (.chezmoi.osRelease.idLike | default ""))) -}}
 # CLI tools
 sudo pacman -S --needed --noconfirm \
