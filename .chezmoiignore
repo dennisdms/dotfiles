@@ -5,6 +5,8 @@ README.md
 .local/share/applications
 .config/MangoHud
 .config/environment.d
+.config/sunshine
+.config/systemd
 {{ end }}
 {{ if ne .chezmoi.os "darwin" }}
 .docker

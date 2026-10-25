@@ -23,7 +23,14 @@ chezmoi/
 │   │   └── config.toml
 │   ├── MangoHud/
 │   │   └── MangoHud.conf
-│   └── starship.toml
+│   ├── starship.toml
+│   ├── sunshine/
+│   │   ├── apps.json
+│   │   └── sunshine.conf
+│   └── systemd/
+│       └── user/
+│           └── app-dev.lizardbyte.app.Sunshine.service.d/
+│               └── reset-displays.conf
 ├── dot_docker/
 │   └── modify_config.json
 ├── dot_local/
@@ -60,7 +67,7 @@ chezmoi/
 - `AGENTS.md` — repository guidance for coding agents, including structure, chezmoi naming, and file inventory.
 - `CLAUDE.md` — Claude entrypoint that imports shared repository context from `@AGENTS.md`.
 - `.chezmoiexternal.toml` — chezmoi externals: pulls the `obsidian-cli` and `obsidian-markdown` Claude Code skills from `kepano/obsidian-skills` (pinned to a commit; bump the sha in both URLs to update) into `~/.claude/skills/`.
-- `.chezmoiignore` — keeps repo-only docs (`AGENTS.md`, `CLAUDE.md`, `README.md`) from being applied into `$HOME`, skips `.local/share/applications`, `.config/MangoHud`, and `.config/environment.d` on non-Linux systems, and skips `.docker` on non-macOS systems.
+- `.chezmoiignore` — keeps repo-only docs (`AGENTS.md`, `CLAUDE.md`, `README.md`) from being applied into `$HOME`, skips `.local/share/applications`, `.config/MangoHud`, `.config/environment.d`, `.config/sunshine`, and `.config/systemd` on non-Linux systems, and skips `.docker` on non-macOS systems.
 - `.gitignore` — local ignore rules for repo-specific, non-versioned files.
 - `dot_claude/CLAUDE.md` — global Claude instructions (`~/.claude/CLAUDE.md`): says Claude usually runs inside herdr and should read `herdr --skill` before herdr-related actions, without using herdr unprompted.
 - `dot_claude/modify_settings.json` — chezmoi `modify_` script that uses `jq` to deep-merge managed Claude settings (plugin enablement, fullscreen TUI, custom status line command, empty attribution, SessionStart/Stop hooks for the herdr session title) into `~/.claude/settings.json`, keeping keys Claude Code writes itself; hook lists are unioned per event so hooks other tools register (e.g. herdr's session-resume hook) survive.
@@ -74,6 +81,9 @@ chezmoi/
 - `dot_docker/modify_config.json` — macOS-only chezmoi `modify_` script that uses `jq` to merge `cliPluginsExtraDirs` (Homebrew's `/opt/homebrew/lib/docker/cli-plugins`) into `~/.docker/config.json` so `docker compose` finds the Homebrew plugin, keeping keys Docker writes itself.
 - `dot_local/share/applications/dev.herdr.Herdr.desktop` — Linux-only desktop entry (`~/.local/share/applications/`) that launches herdr in its own Ghostty window with the thin KDE server-side titlebar instead of the GTK header (`--class=dev.herdr.Herdr`, `--window-decoration=server`).
 - `dot_config/starship.toml` — Starship prompt config with a compact single-line prompt and Git status modules.
+- `dot_config/sunshine/sunshine.conf` — Linux-only Sunshine config (`~/.config/sunshine/sunshine.conf`): streams the main monitor (`output_name = DP-2`) instead of the portrait side monitor. Sunshine's web UI also writes this file; `chezmoi re-add` after changing settings there.
+- `dot_config/sunshine/apps.json` — Linux-only Sunshine app list (`~/.config/sunshine/apps.json`): the Desktop app mirrors the side monitor (DP-1) onto the main one (DP-2) so all windows land on the streamed screen, and scales DP-2 to 150% for small client screens, both via `kscreen-doctor` prep commands undone when the app quits (KDE refuses to disable outputs); plus Steam Big Picture. Also written by the web UI.
+- `dot_config/systemd/user/app-dev.lizardbyte.app.Sunshine.service.d/reset-displays.conf` — Linux-only systemd user drop-in for the Sunshine service that runs the Desktop app's undo commands on every start, so a reboot or crash mid-stream doesn't leave the monitors mirrored and scaled.
 - `dot_gitconfig` — Git defaults and aliases, including `delta` integration, rebase-oriented pull behavior, pruning, fast-forward-only merge, and short aliases.
 - `dot_ideavimrc` — IdeaVim settings and JetBrains action mappings for navigation, debugging, rename, find, and error traversal.
 - `dot_vimrc` — base Vim configuration: search behavior, indentation, line numbers, status UI, and a clear-search mapping.
