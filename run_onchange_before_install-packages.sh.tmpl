@@ -37,6 +37,7 @@ brew "docker-compose"
 # Apps
 cask "obsidian"
 cask "spotify"
+cask "moonlight"
 EOF
 {{ else if and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "cachyos") (contains "arch" (.chezmoi.osRelease.idLike | default ""))) -}}
 # CLI tools
@@ -71,7 +72,8 @@ sudo pacman -S --needed --noconfirm \
   spotify-launcher \
   mangohud \
   nvtop \
-  power-profiles-daemon
+  power-profiles-daemon \
+  sunshine
 
 # AUR packages
 paru -S --needed --noconfirm \
