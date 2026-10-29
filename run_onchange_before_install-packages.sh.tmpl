@@ -29,6 +29,8 @@ brew "bash"
 brew "zoxide"
 brew "herdr"
 brew "cloudflared"
+# pi coding agent
+brew "pi-coding-agent"
 # Start the Colima VM now and at login so docker works without `colima start`
 brew "colima", start_service: true
 brew "docker"
@@ -80,7 +82,8 @@ paru -S --needed --noconfirm \
   nordvpn-bin \
   visual-studio-code-bin \
   shellcheck-bin \
-  herdr-bin
+  herdr-bin \
+  pi-coding-agent-bin
 
 # VPN daemons
 sudo systemctl enable --now tailscaled nordvpnd

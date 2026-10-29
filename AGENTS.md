@@ -33,6 +33,9 @@ chezmoi/
 │               └── reset-displays.conf
 ├── dot_docker/
 │   └── modify_config.json
+├── dot_pi/
+│   └── agent/
+│       └── models.json
 ├── dot_local/
 │   └── share/
 │       └── applications/
@@ -45,6 +48,7 @@ chezmoi/
 ├── run_once_before_install-homebrew.sh.tmpl
 ├── run_onchange_before_install-packages.sh.tmpl
 ├── run_onchange_install-toolchains.sh
+├── run_after_install-herdr-integrations.sh
 ├── AGENTS.md
 ├── CLAUDE.md
 ├── .chezmoiexternal.toml
@@ -57,6 +61,7 @@ chezmoi/
 - Example: `dot_zshrc` becomes `~/.zshrc` and `dot_config/starship.toml` becomes `~/.config/starship.toml`.
 - `run_once_*` scripts run once.
 - `run_onchange_*` scripts rerun when their contents change.
+- `run_*` scripts without `once`/`onchange` run on every apply; `run_*_after_*` scripts run after files are applied.
 - `run_*_before_*` scripts run before any files are applied; plain `run_*` scripts run interleaved with files in alphabetical target order.
 - `modify_*` scripts receive the current target file on stdin and print the new contents; used for files an app also writes to.
 - `.chezmoiexternal.toml` declares files fetched from elsewhere (e.g. GitHub archives) at apply time instead of being stored in the repo.
@@ -80,6 +85,7 @@ chezmoi/
 - `dot_config/herdr/config.toml` — herdr config (same path on Linux and macOS): skips onboarding, sets the prefix to ctrl+space and a full keymap (agent picker on prefix+space/ctrl+alt+space, ctrl+alt+j/k agents, ctrl+alt+n/p workspaces, ctrl+alt+w workspace picker, ctrl+alt+1..9 and ctrl+alt+[/] tabs, alt+h/j/k/l pane focus, prefix+g/G/ctrl+g worktrees, prefix+v/s splits, prefix+m resize, settings moved to prefix+comma), adds a prefix+shift+c custom command that opens the focused pane's directory in VS Code, uses symbol status indicators, shows the wrapped Claude session title rows for claude agents in the sidebar, and sets the Gruvbox theme.
 - `dot_docker/modify_config.json` — macOS-only chezmoi `modify_` script that uses `jq` to merge `cliPluginsExtraDirs` (Homebrew's `/opt/homebrew/lib/docker/cli-plugins`) into `~/.docker/config.json` so `docker compose` finds the Homebrew plugin, keeping keys Docker writes itself.
 - `dot_local/share/applications/dev.herdr.Herdr.desktop` — Linux-only desktop entry (`~/.local/share/applications/`) that launches herdr in its own Ghostty window with the thin KDE server-side titlebar instead of the GTK header (`--class=dev.herdr.Herdr`, `--window-decoration=server`).
+- `dot_pi/agent/models.json` — pi coding agent custom models (`~/.pi/agent/models.json`): an `ollama-cloud` provider pointing at Ollama Cloud's OpenAI-compatible API (`https://ollama.com/v1`) with a few open models (Kimi K3, GLM 5.3, DeepSeek V4 Pro, MiniMax M3, gpt-oss 120b); the key is read at request time with `!cat ~/.config/ollama/api-key`, an unmanaged file created by hand on each machine (mode 600), so it is never exported to the shell.
 - `dot_config/starship.toml` — Starship prompt config with a compact single-line prompt and Git status modules.
 - `dot_config/sunshine/sunshine.conf` — Linux-only Sunshine config (`~/.config/sunshine/sunshine.conf`): streams the main monitor (`output_name = DP-2`) instead of the portrait side monitor. Sunshine's web UI also writes this file; `chezmoi re-add` after changing settings there.
 - `dot_config/sunshine/apps.json` — Linux-only Sunshine app list (`~/.config/sunshine/apps.json`): the Desktop app mirrors the side monitor (DP-1) onto the main one (DP-2) so all windows land on the streamed screen, and scales DP-2 to 150% for small client screens, both via `kscreen-doctor` prep commands undone when the app quits (KDE refuses to disable outputs); plus Steam Big Picture. Also written by the web UI.
@@ -89,7 +95,8 @@ chezmoi/
 - `dot_vimrc` — base Vim configuration: search behavior, indentation, line numbers, status UI, and a clear-search mapping.
 - `dot_zshrc` — shell environment setup for SSH agent, SDKMAN, Claude, Homebrew, pnpm, fzf, atuin, cargo, zoxide, word-deletion and ctrl+arrow word-navigation bindings, aliases, a `scratch` function for timestamped scratch folders, and Starship.
 - `run_once_before_install-homebrew.sh.tmpl` — macOS-only one-time bootstrap that installs Homebrew when it is missing, run before files are applied; renders empty (skipped) on Linux.
-- `run_onchange_before_install-packages.sh.tmpl` — OS-specific CLI tool install, run before files are applied so `jq` exists for the `modify_` scripts: Homebrew on macOS via an inline `brew bundle` Brewfile, which skips already-installed packages quietly (CLI formulae including herdr, jq, cloudflared, a modern bash for the SDKMAN installer, and Colima with the Docker and Docker Compose CLIs, starting Colima as a login service, plus the Obsidian, Spotify, and Moonlight casks); pacman (plus jq, Tailscale, cloudflared, Docker with Compose and Buildx, Obsidian, spotify-launcher, MangoHud, nvtop, power-profiles-daemon, and Sunshine) and paru for AUR packages (NordVPN, VS Code, ShellCheck, herdr) plus a list of VS Code extensions (Vim, Error Lens, EditorConfig, Gruvbox, ShellCheck, Even Better TOML, SQLTools) on CachyOS/Arch, enabling the VPN and Docker daemons, adding the user to the `docker` group, and setting the persistent `performance` power profile; fails on unsupported OSes.
+- `run_onchange_before_install-packages.sh.tmpl` — OS-specific CLI tool install, run before files are applied so `jq` exists for the `modify_` scripts: Homebrew on macOS via an inline `brew bundle` Brewfile, which skips already-installed packages quietly (CLI formulae including herdr, jq, cloudflared, the pi coding agent, a modern bash for the SDKMAN installer, and Colima with the Docker and Docker Compose CLIs, starting Colima as a login service, plus the Obsidian, Spotify, and Moonlight casks); pacman (plus jq, Tailscale, cloudflared, Docker with Compose and Buildx, Obsidian, spotify-launcher, MangoHud, nvtop, power-profiles-daemon, and Sunshine) and paru for AUR packages (NordVPN, VS Code, ShellCheck, herdr, the pi coding agent) plus a list of VS Code extensions (Vim, Error Lens, EditorConfig, Gruvbox, ShellCheck, Even Better TOML, SQLTools) on CachyOS/Arch, enabling the VPN and Docker daemons, adding the user to the `docker` group, and setting the persistent `performance` power profile; fails on unsupported OSes.
+- `run_after_install-herdr-integrations.sh` — runs after files on every apply: when herdr and pi are installed, runs `herdr integration install pi` so herdr tracks pi's agent state (writes the herdr-owned `~/.pi/agent/extensions/herdr-agent-state.ts`, kept out of the repo because herdr rewrites it on upgrade).
 - `run_onchange_install-toolchains.sh` — shared script that installs Rust (`rustup`), SDKMAN, and Claude Code via their official installers.
 
 ## Notes for agents
