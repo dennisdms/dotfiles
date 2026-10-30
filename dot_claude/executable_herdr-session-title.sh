@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# Claude Code hook (SessionStart, Stop): shows the session title in the herdr
-# sidebar. The title is word-wrapped into the $title1..$title3 pane tokens that
-# dot_config/herdr/config.toml renders as rows; overflow ends in "…".
+# Claude Code SessionStart/Stop hook: reports the session title to herdr as
+# wrapped $title1..$title3 pane tokens.
 
 width=22
 max_lines=3
@@ -12,7 +11,6 @@ command -v herdr >/dev/null || exit 0
 transcript=$(jq -r '.transcript_path // empty')
 [ -f "$transcript" ] || exit 0
 
-# A /rename name wins over the generated title; the latest record of each counts.
 title=$(grep -h '"type":"agent-name"' "$transcript" | tail -n 1 | jq -r '.agentName // empty')
 [ -n "$title" ] || title=$(grep -h '"type":"ai-title"' "$transcript" | tail -n 1 | jq -r '.aiTitle // empty')
 

@@ -1,8 +1,5 @@
 #!/bin/sh
-# chezmoi modify_ script for ~/.claude/settings.json.
-# Receives the current file on stdin and deep-merges the managed keys below
-# into it, so settings Claude Code writes itself (/config, plugins,
-# permissions) are kept. Managed keys win on conflict.
+# Deep-merges the managed keys into ~/.claude/settings.json, keeping keys Claude Code writes.
 set -eu
 
 managed='{
@@ -32,8 +29,7 @@ managed='{
 current=$(cat)
 [ -n "$current" ] || current='{}'
 
-# jq's `*` replaces arrays, which would drop hooks other tools register
-# (e.g. herdr's session hook), so hook lists are unioned per event instead.
+# Union hook lists so hooks other tools register survive.
 printf '%s\n' "$current" | jq --argjson managed "$managed" '
   (.hooks // {}) as $hooks
   | . * ($managed | del(.hooks))

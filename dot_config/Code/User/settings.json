@@ -36,20 +36,17 @@
     { "before": ["<leader>", "a"], "commands": ["editor.action.quickFix"] }
   ],
 
-  // Theme — matches Ghostty
+  // Theme
   "workbench.colorTheme": "Gruvbox Dark Medium",
 
-  // Tabs: at most 10 open, wrapped onto multiple rows instead of scrolling
+  // Tabs
   "workbench.editor.limit.enabled": true,
   "workbench.editor.limit.value": 10,
   "workbench.editor.wrapTabs": true,
 
-  // Disable built-in AI (Copilot/chat) features
   "chat.disableAIFeatures": true,
 
-  // Use system shellcheck (shellcheck-bin) instead of the bundled binary
+  // Extensions
   "shellcheck.executablePath": "/usr/bin/shellcheck",
-
-  // Run SQLTools drivers (e.g. SQLite's native module) under system Node, not VS Code's Electron
   "sqltools.useNodeRuntime": true
 }

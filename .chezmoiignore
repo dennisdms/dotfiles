@@ -1,13 +1,14 @@
 AGENTS.md
 CLAUDE.md
 README.md
-{{ if ne .chezmoi.os "linux" }}
-.local/share/applications
-.config/MangoHud
-.config/environment.d
-.config/sunshine
-.config/systemd
-{{ end }}
+
+# macOS only
 {{ if ne .chezmoi.os "darwin" }}
+.chezmoiscripts/darwin/**
 .docker
+{{ end }}
+
+# Linux only
+{{ if ne .chezmoi.os "linux" }}
+.chezmoiscripts/linux/**
 {{ end }}

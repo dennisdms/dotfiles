@@ -8,7 +8,7 @@ fi
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# Claude 
+# Claude
 export PATH="$HOME/.local/bin:$PATH"
 
 # Homebrew
@@ -21,10 +21,10 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 
-# fzf (file and directory search: ctrl+t, alt+c)
+# fzf
 eval "$(fzf --zsh)"
 
-# atuin (history search: ctrl+r, up arrow)
+# atuin
 eval "$(atuin init zsh)"
 
 # source local .zshrc
@@ -36,10 +36,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # zoxide
 eval "$(zoxide init zsh)"
 
-# word deletion (ctrl+w) stops at / . - =
+# word deletion and navigation
 WORDCHARS=${WORDCHARS//[\/.=-]}
 
-# word navigation (ctrl+left/right)
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 
@@ -49,7 +48,7 @@ alias lt='eza --tree --level=3'
 alias j='z'
 alias jj='zi'
 
-# scratch <name>: create and cd into ~/scratch/<timestamp>-<name>
+# scratch <name>: cd into a new timestamped ~/scratch dir
 scratch() {
     if [ $# -ne 1 ]; then
         echo "usage: scratch <name>" >&2

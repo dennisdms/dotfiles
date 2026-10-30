@@ -1,6 +1,4 @@
-# Claude Code skills from kepano/obsidian-skills (Steph Ango / Obsidian),
-# pinned to a commit. To update: bump the sha in both URLs, then `chezmoi apply`.
-# https://github.com/kepano/obsidian-skills
+# Claude Code skills from kepano/obsidian-skills; bump the sha in both URLs to update.
 
 [".claude/skills/obsidian-cli"]
     type = "archive"
