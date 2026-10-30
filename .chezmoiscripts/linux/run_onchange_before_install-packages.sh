@@ -40,7 +40,8 @@ sudo pacman -S --needed --noconfirm \
   spotify-launcher \
   nvtop \
   power-profiles-daemon \
-  sunshine
+  sunshine \
+  ollama-cuda
 
 # AUR packages
 paru -S --needed --noconfirm \

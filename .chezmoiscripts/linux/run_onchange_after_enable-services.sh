@@ -12,3 +12,6 @@ sudo usermod -aG docker "$USER"
 # Power profile
 sudo systemctl enable --now power-profiles-daemon
 powerprofilesctl set performance
+
+# Ollama
+sudo systemctl enable --now ollama
