@@ -42,6 +42,13 @@ type = "shell"
 command = 'code "${HERDR_ACTIVE_PANE_CWD:-.}"'
 description = "open pane cwd in VS Code"
 
+# reviewr plugin
+[[keys.command]]
+key = "prefix+d"
+type = "plugin_action"
+command = "persiyanov.reviewr.toggle"
+description = "toggle reviewr diff pane"
+
 [ui]
 status_indicators = "symbols"
 
