@@ -24,6 +24,8 @@ brew "atuin"
 brew "uv"
 brew "pnpm"
 brew "node"
+# TypeScript language server for the typescript-lsp Claude Code plugin (pulls in typescript)
+brew "typescript-language-server"
 brew "jq"
 brew "bash"
 brew "zoxide"
@@ -31,6 +33,8 @@ brew "herdr"
 brew "cloudflared"
 # pi coding agent
 brew "pi-coding-agent"
+brew "sops"
+brew "age"
 # Start the Colima VM now and at login so docker works without `colima start`
 brew "colima", start_service: true
 brew "docker"
@@ -67,6 +71,8 @@ sudo pacman -S --needed --noconfirm \
   paru \
   tailscale \
   cloudflared \
+  sops \
+  age \
   docker \
   docker-compose \
   docker-buildx \
