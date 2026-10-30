@@ -36,6 +36,12 @@ sudo pacman -S --needed --noconfirm \
   docker \
   docker-compose \
   docker-buildx \
+  qemu-desktop \
+  libvirt \
+  virt-manager \
+  virt-install \
+  edk2-ovmf \
+  dnsmasq \
   obsidian \
   spotify-launcher \
   nvtop \

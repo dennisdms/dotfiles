@@ -9,6 +9,10 @@ sudo usermod -aG nordvpn "$USER"
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"
 
+# Virtualization
+sudo systemctl enable --now libvirtd
+sudo usermod -aG libvirt "$USER"
+
 # Power profile
 sudo systemctl enable --now power-profiles-daemon
 powerprofilesctl set performance
