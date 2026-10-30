@@ -2,8 +2,13 @@
 
 `chezmoi`-managed dotfiles shared between a MacBook Air (M1, macOS) and a CachyOS (Arch) Linux desktop.
 
+## Purpose
+- Back up configs, apps, and packages across the user's machines.
+- Back up packages and apps even if only one machine uses them; skip single-machine configs and fine-grained settings like screen layouts or resolutions.
+- The user may also work from here to inspect the system or make local config changes and installs that stay out of chezmoi. When it's unclear whether a change belongs in the repo, ask.
+
 ## Working here
-- Edit the chezmoi source files in this repo, not the generated files in `$HOME`.
+- For managed files, edit the chezmoi source here, not the generated file in `$HOME`.
 - Keep it simple and declarative.
 - Comments are sparse: a file header and section labels, not line-by-line explanations.
 - Scripts live in `.chezmoiscripts/{common,darwin,linux}/`; OS-only scripts and files are gated in `.chezmoiignore`, not with templates.
