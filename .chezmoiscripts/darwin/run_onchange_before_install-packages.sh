@@ -27,6 +27,7 @@ brew "zoxide"
 brew "herdr"
 brew "cloudflared"
 brew "pi-coding-agent"
+brew "ollama", start_service: true
 brew "sops"
 brew "age"
 brew "colima", start_service: true
