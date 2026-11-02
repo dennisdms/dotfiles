@@ -29,3 +29,9 @@ CachyOS / Arch:
 sudo pacman -S --needed chezmoi git \
   && chezmoi init --apply git@github.com:dennisdms/dotfiles.git
 ```
+
+Ubuntu:
+```bash
+sudo apt-get install -y git curl \
+  && sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin init --apply git@github.com:dennisdms/dotfiles.git
+```

@@ -2,13 +2,26 @@ AGENTS.md
 CLAUDE.md
 README.md
 
+{{ $distro := "" }}
+{{ if eq .chezmoi.os "linux" }}{{ $distro = .chezmoi.osRelease.id }}{{ end }}
+
 # macOS only
 {{ if ne .chezmoi.os "darwin" }}
 .chezmoiscripts/darwin/**
 .docker
 {{ end }}
 
-# Linux only
-{{ if ne .chezmoi.os "linux" }}
-.chezmoiscripts/linux/**
+# CachyOS / Arch only
+{{ if or (ne .chezmoi.os "linux") (eq $distro "ubuntu") }}
+.chezmoiscripts/arch/**
+{{ end }}
+
+# Ubuntu Server only
+{{ if ne $distro "ubuntu" }}
+.chezmoiscripts/ubuntu/**
+{{ else }}
+# desktop-only configs
+.config/Code
+.config/ghostty
+.ideavimrc
 {{ end }}
