@@ -57,6 +57,15 @@ paru -S --needed --noconfirm \
   herdr-bin \
   pi-coding-agent-bin
 
+# tea (Gitea CLI)
+if ! command -v tea &>/dev/null && [ ! -x "$HOME/.local/bin/tea" ]; then
+  tea_version="$(curl -fsSL https://dl.gitea.com/tea/version.json | jq -r .latest.version)"
+  tea_arch="$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')"
+  mkdir -p "$HOME/.local/bin"
+  curl -fsSL "https://dl.gitea.com/tea/$tea_version/tea-$tea_version-linux-$tea_arch" -o "$HOME/.local/bin/tea"
+  chmod +x "$HOME/.local/bin/tea"
+fi
+
 # VS Code extensions
 extensions=(
   vscodevim.vim

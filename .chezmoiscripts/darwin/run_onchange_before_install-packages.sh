@@ -10,6 +10,7 @@ brew bundle --quiet --file=- <<'EOF'
 brew "git"
 brew "gh"
 brew "ghq"
+brew "tea"
 brew "fzf"
 brew "starship"
 brew "bat"
