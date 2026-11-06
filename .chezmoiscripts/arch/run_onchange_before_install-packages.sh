@@ -16,6 +16,7 @@ sudo pacman -S --needed --noconfirm \
   bat \
   eza \
   git-delta \
+  pre-commit \
   chezmoi \
   atuin \
   uv \

@@ -39,6 +39,7 @@ sudo apt-get install -y \
   npm \
   age \
   shellcheck \
+  pre-commit \
   tailscale \
   docker-ce \
   docker-ce-cli \
