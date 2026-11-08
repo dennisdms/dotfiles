@@ -58,7 +58,6 @@ paru -S --needed --noconfirm --mflags --nocheck \
   shellcheck-bin \
   herdr-bin \
   herdr-app-desktop-bin \
-  proton-pass-cli-bin \
   pi-coding-agent-bin \
   en-croissant-bin
 

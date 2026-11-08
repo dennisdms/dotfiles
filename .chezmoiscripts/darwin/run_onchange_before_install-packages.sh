@@ -11,7 +11,6 @@ brew "git"
 brew "gh"
 brew "ghq"
 brew "tea"
-brew "protonpass/tap/pass-cli", trusted: true
 brew "pre-commit"
 brew "fzf"
 brew "starship"
