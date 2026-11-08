@@ -73,3 +73,8 @@ if ! command -v tea &>/dev/null && [ ! -x "$HOME/.local/bin/tea" ]; then
   curl -fsSL "https://dl.gitea.com/tea/$tea_version/tea-$tea_version-linux-$tea_arch" -o "$HOME/.local/bin/tea"
   chmod +x "$HOME/.local/bin/tea"
 fi
+
+# Proton Pass CLI
+if ! command -v pass-cli &>/dev/null && [ ! -x "$HOME/.local/bin/pass-cli" ]; then
+  curl -fsSL https://proton.me/download/pass-cli/install.sh | PROTON_PASS_CLI_INSTALL_DIR="$HOME/.local/bin" bash
+fi

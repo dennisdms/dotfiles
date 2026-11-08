@@ -56,6 +56,7 @@ paru -S --needed --noconfirm \
   visual-studio-code-bin \
   shellcheck-bin \
   herdr-bin \
+  proton-pass-cli-bin \
   pi-coding-agent-bin
 
 # tea (Gitea CLI)
