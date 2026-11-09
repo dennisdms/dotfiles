@@ -51,13 +51,14 @@ sudo pacman -S --needed --noconfirm \
   ollama-cuda
 
 # AUR packages
-paru -S --needed --noconfirm \
+paru -S --needed --noconfirm --mflags --nocheck \
   nordvpn-bin \
   visual-studio-code-bin \
   shellcheck-bin \
   herdr-bin \
   proton-pass-cli-bin \
-  pi-coding-agent-bin
+  pi-coding-agent-bin \
+  en-croissant-bin
 
 # tea (Gitea CLI)
 if ! command -v tea &>/dev/null && [ ! -x "$HOME/.local/bin/tea" ]; then
