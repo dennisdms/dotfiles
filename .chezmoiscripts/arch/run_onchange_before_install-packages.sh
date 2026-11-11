@@ -23,6 +23,7 @@ sudo pacman -S --needed --noconfirm \
   pnpm \
   nodejs \
   jq \
+  wl-clipboard \
   npm \
   zoxide \
   zsh \
@@ -68,17 +69,3 @@ if ! command -v tea &>/dev/null && [ ! -x "$HOME/.local/bin/tea" ]; then
   curl -fsSL "https://dl.gitea.com/tea/$tea_version/tea-$tea_version-linux-$tea_arch" -o "$HOME/.local/bin/tea"
   chmod +x "$HOME/.local/bin/tea"
 fi
-
-# VS Code extensions
-extensions=(
-  vscodevim.vim
-  usernamehw.errorlens
-  editorconfig.editorconfig
-  jdinhlife.gruvbox
-  timonwong.shellcheck
-  tamasfe.even-better-toml
-  mtxr.sqltools
-)
-for ext in "${extensions[@]}"; do
-  code --install-extension "$ext" --force
-done
