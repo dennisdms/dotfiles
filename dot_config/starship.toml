@@ -1,6 +1,8 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = """($status$cmd_duration )$fill
+add_newline = false
+format = """($cmd_duration )($status )$fill
+
 [(\\($username$hostname\\) )](bright-black)$directory$python($git_branch$git_status )$git_state$character"""
 
 [username]
@@ -23,7 +25,7 @@ disabled = true
 
 [character]
 success_symbol = "[>](purple)"
-error_symbol = "[>](red)"
+error_symbol = "[>](purple)"
 vimcmd_symbol = "[<](green)"
 
 [python]
@@ -48,7 +50,7 @@ diverged = "⇣⇡"
 
 [status]
 disabled = false
-format = "[exit $status]($style) "
+format = "[exit $status]($style)"
 style = "red"
 
 [fill]
