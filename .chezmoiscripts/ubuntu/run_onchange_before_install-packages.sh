@@ -60,6 +60,16 @@ if ! command -v uv &>/dev/null && [ ! -x "$HOME/.local/bin/uv" ]; then
   curl -LsSf https://astral.sh/uv/install.sh | env UV_NO_MODIFY_PATH=1 sh
 fi
 
+# ghq (not in apt)
+if ! command -v ghq &>/dev/null && [ ! -x "$HOME/.local/bin/ghq" ]; then
+  arch="$(dpkg --print-architecture)"
+  tmp="$(mktemp -d)"
+  curl -fsSL "https://github.com/x-motemen/ghq/releases/latest/download/ghq_linux_${arch}.zip" -o "$tmp/ghq.zip"
+  unzip -q "$tmp/ghq.zip" -d "$tmp"
+  install -m 0755 "$tmp/ghq_linux_${arch}/ghq" "$HOME/.local/bin/ghq"
+  rm -rf "$tmp"
+fi
+
 # herdr
 if ! command -v herdr &>/dev/null && [ ! -x "$HOME/.local/bin/herdr" ]; then
   curl -fsSL https://herdr.dev/install.sh | sh
