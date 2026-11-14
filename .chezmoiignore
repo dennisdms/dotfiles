@@ -14,6 +14,7 @@ README.md
 # CachyOS / Arch only
 {{ if or (ne .chezmoi.os "linux") (eq $distro "ubuntu") }}
 .chezmoiscripts/arch/**
+.config/herdr-app
 {{ end }}
 
 # Ubuntu Server only
