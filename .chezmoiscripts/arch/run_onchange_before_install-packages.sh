@@ -57,6 +57,7 @@ paru -S --needed --noconfirm --mflags --nocheck \
   visual-studio-code-bin \
   shellcheck-bin \
   herdr-bin \
+  herdr-app-desktop-bin \
   proton-pass-cli-bin \
   pi-coding-agent-bin \
   en-croissant-bin
