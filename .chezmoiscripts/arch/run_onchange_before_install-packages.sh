@@ -35,6 +35,7 @@ sudo pacman -S --needed --noconfirm \
   cloudflared \
   sops \
   age \
+  ansible \
   docker \
   docker-compose \
   docker-buildx \

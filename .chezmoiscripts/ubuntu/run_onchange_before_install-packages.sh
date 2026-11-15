@@ -38,6 +38,7 @@ sudo apt-get install -y \
   nodejs \
   npm \
   age \
+  ansible \
   shellcheck \
   pre-commit \
   tailscale \
