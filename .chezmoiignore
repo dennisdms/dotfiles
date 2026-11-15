@@ -14,7 +14,6 @@ README.md
 # CachyOS / Arch only
 {{ if or (ne .chezmoi.os "linux") (eq $distro "ubuntu") }}
 .chezmoiscripts/arch/**
-.config/herdr-app
 {{ end }}
 
 # Ubuntu Server only
@@ -23,6 +22,7 @@ README.md
 {{ else }}
 # desktop-only configs
 .config/Code
+.config/herdr-app
 .config/ghostty
 .ideavimrc
 {{ end }}
