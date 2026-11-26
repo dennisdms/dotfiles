@@ -42,4 +42,5 @@ cask "obsidian"
 cask "spotify"
 cask "moonlight"
 cask "herdr-app"
+cask "nordvpn"
 EOF
