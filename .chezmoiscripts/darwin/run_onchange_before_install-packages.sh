@@ -39,6 +39,7 @@ brew "docker-compose"
 
 # Apps
 cask "obsidian"
+cask "openscad@snapshot"
 cask "spotify"
 cask "moonlight"
 cask "herdr-app"
