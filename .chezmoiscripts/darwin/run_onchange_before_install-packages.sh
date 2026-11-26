@@ -44,4 +44,5 @@ cask "spotify"
 cask "moonlight"
 cask "herdr-app"
 cask "nordvpn"
+cask "transmission"
 EOF

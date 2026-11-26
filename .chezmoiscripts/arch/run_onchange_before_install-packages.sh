@@ -47,6 +47,7 @@ sudo pacman -S --needed --noconfirm \
   dnsmasq \
   obsidian \
   openscad \
+  qbittorrent \
   spotify-launcher \
   nvtop \
   power-profiles-daemon \
