@@ -32,6 +32,7 @@ brew "pi-coding-agent"
 brew "ollama", start_service: true
 brew "sops"
 brew "age"
+brew "rbw"
 brew "ansible"
 brew "colima", start_service: true
 brew "docker"
